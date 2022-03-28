@@ -4,7 +4,7 @@ create table preference
         constraint preference_pk
             primary key,
     name        nvarchar(256),
-    type        nvarchar(256) not null,
+    context     nvarchar(256) not null,
     dataType    nvarchar(256),
     categoryIdx int
         constraint preference_category_idx_fk
