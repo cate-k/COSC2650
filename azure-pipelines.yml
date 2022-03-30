@@ -35,7 +35,7 @@ steps:
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: '44e9903f-43e0-4d2f-bafe-6bf063a7532f'
+    azureSubscription: 'COSCMngmnt'
     appType: 'webApp'
     appName: 'golden-time'
     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
