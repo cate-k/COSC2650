@@ -37,10 +37,11 @@ steps:
   inputs:
    PathtoPublish: $(Build.ArtifactStagingDirectory)
 
-- task: AzureWebApp@1
+
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'COSCMngmnt'
     appType: 'webApp'
-    appName: 'golden-time'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-    deploymentMethod: 'auto'
+    WebAppName: 'golden-time'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
