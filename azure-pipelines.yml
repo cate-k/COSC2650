@@ -40,5 +40,5 @@ steps:
     azureSubscription: 'COSCMngmnt'
     appType: 'webApp'
     appName: 'golden-time'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: 'D:\a\1\a/**/*.zip'
     deploymentMethod: 'auto'
