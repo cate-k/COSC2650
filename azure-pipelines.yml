@@ -34,11 +34,13 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
+  inputs:
+   PathtoPublish: $(Build.ArtifactStagingDirectory)
 
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'COSCMngmnt'
     appType: 'webApp'
     appName: 'golden-time'
-    package: 'D:\a\1\a/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
