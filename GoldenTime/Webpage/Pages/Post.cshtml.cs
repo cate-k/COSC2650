@@ -26,8 +26,15 @@ namespace Webpage.Pages
         // time.
         private void BuildPostModelComplexProperties()
         {
-            // Categories
-            AvailableCategories = Helper.BuildCategories(_contextFactory).ToList();
+            try
+            {
+                // Categories
+                AvailableCategories = Helper.BuildCategories(_contextFactory).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex, string.Concat("PostModel:BuildPostModelComplexProperties: ", ex.Message), new object[0]);
+            }
         }
 
         public PostModel(ILogger<IndexModel> logger, IDbContextFactory<cosc2650Context> contextFactory)
@@ -49,34 +56,35 @@ namespace Webpage.Pages
         {
             BuildPostModelComplexProperties();
 
-            // This is where we inspect the http post, bound properties on the model and save...
-            using (var dbc = _contextFactory.CreateDbContext())
+            try
             {
-                var p = new Posts()
+                // This is where we inspect the http post, bound properties on the model and save...
+                using (var dbc = _contextFactory.CreateDbContext())
                 {
-                    Content = Post.Content,
-                    Subject = Post.Title,
-                    UserIdx = Helper.GetUserIndex(_contextFactory, "s3739099@student.rmit.edu.au") // <-- TODO: This is where we need claims from Sam's work.                 
-                    // TODO: The rest of properties...
-                };
-                //TODO: Get all the selected categories from the post
-                var selectedCategories = new List<POCO.Category>();
+                    var p = new Posts()
+                    {
+                        Content = Post.Content,
+                        Subject = Post.Title,
+                        UserIdx = Helper.GetUserIndex(_contextFactory, "s3739099@student.rmit.edu.au") // <-- TODO: This is where we need claims from Sam's work.                 
+                        // TODO: The rest of properties...
+                    };
+                    //TODO: Get all the selected categories from the post
+                    var selectedCategories = new List<POCO.Category>();
 
-                selectedCategories.Add(new POCO.Category() { Idx=1 }); // <-- this is fake, just for test
+                    selectedCategories.Add(new POCO.Category() { Idx = 1 }); // <-- this is fake, just for test
 
-                // Make links
-                selectedCategories.ForEach(c => p.PostCategories.Add(new PostCategories()
-                    { CategoryIdx = c.Idx, PostIdxNavigation = p }));
-                dbc.Posts.Add(p);
+                    // Make links
+                    selectedCategories.ForEach(c => p.PostCategories.Add(new PostCategories()
+                        { CategoryIdx = c.Idx, PostIdxNavigation = p }));
 
-                dbc.SaveChanges();
+                    dbc.Posts.Add(p);
+                    dbc.SaveChanges();
+                }
             }
-
-            if (!ModelState.IsValid)
+            catch (Exception ex)
             {
-                return Page();
+                _logger.Log(LogLevel.Error, ex, string.Concat("PostModel:OnPost: ", ex.Message), new object[0]);
             }
-
 
             return Page();
         }
