@@ -1,0 +1,63 @@
+﻿@page
+@model Webpage.Pages.PostModel
+@{
+    ViewData["Title"] = "Post";
+}
+
+@functions {
+    public void ShowTree(List<POCO.Category> categories)
+    {
+        <ul>
+        @foreach (var category in categories)
+        {
+            <li>
+                @category.Name
+                @if (category.Children.Any())
+                {
+                    ShowTree(category.Children);
+                }
+                else
+                {
+                    <input type="checkbox" id="@category.Idx" name="@category.Name" />
+                    <br />
+                }
+            </li>
+        }
+        </ul>
+    }
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+
+    <form id="NewPostForm" method="post" asp-action="SubmitPost" asp-controller="Post" enctype="application/x-www-form-urlencoded">
+        Title: <br />
+        <input asp-for="Post.Title" /><br />
+        Content: <br />
+        <textarea asp-for="Post.Content" style="width:250px;height:150px;"></textarea><br />
+        Categories:<br />
+                 <ul name="category" id="category" multiple>
+                     @foreach (var category in Model.AvailableCategories)
+                     {
+                     <li>
+                         @category.Name
+                         @if (category.Children.Any())
+                         {
+                             ShowTree(category.Children);
+                         }
+                         else
+                         {
+                             <input type="checkbox" id="@category.Idx" name="@category.Name" />
+                             <br />
+                         }
+                     </li>
+                 }
+                 </ul>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+
+    </form>
+
+</div>

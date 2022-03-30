@@ -30,9 +30,10 @@ namespace Webpage
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<cosc2650Context>(options =>
+            // This is here so the DI with parameter works. Factory is used due to the
+            // dbContext scope requirements
+            services.AddDbContextFactory<cosc2650Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-//          services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddRazorPages();
         } 

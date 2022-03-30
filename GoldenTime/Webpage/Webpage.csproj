@@ -39,8 +39,16 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Relational" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="PageModels\" />
+    <None Remove="PageModels\Post\" />
+    <None Remove="POCO\" />
+    <None Remove="Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EFModel\" />
+    <Folder Include="PageObjects\" />
+    <Folder Include="PageObjects\Post\" />
+    <Folder Include="POCO\" />
+    <Folder Include="Shared\" />
   </ItemGroup>
 </Project>
