@@ -33,6 +33,7 @@ namespace Webpage.Shared
             return availableCategories;
         }
 
+        // Fetch User idx by email claim
         public static int GetUserIndex(IDbContextFactory<cosc2650Context> contextFactory, string claim_email) {
             using (var dbc = contextFactory.CreateDbContext())
                 return dbc.Users.Where(u => u.Email == claim_email).FirstOrDefault().Idx;
