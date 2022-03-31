@@ -30,7 +30,6 @@
 <h1>@ViewData["Title"]</h1>
 
 <div>
-
     <form id="NewPostForm" method="post" asp-action="SubmitPost" asp-controller="Post" enctype="application/x-www-form-urlencoded">
         Title: <br />
         <input asp-for="Post.Title" /><br />
@@ -57,7 +56,5 @@
         <div>
             <input type="submit" value="Submit" />
         </div>
-
     </form>
-
 </div>
