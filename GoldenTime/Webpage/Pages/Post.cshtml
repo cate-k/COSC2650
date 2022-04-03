@@ -30,7 +30,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <div>
-    <form id="NewPostForm" method="post" asp-action="SubmitPost" asp-controller="Post" enctype="application/x-www-form-urlencoded">
+    <form id="NewPostForm" method="post" asp-action="SubmitPost" asp-controller="Post" enctype="multipart/form-data">
         Title: <br />
         <input asp-for="Post.Title" /><br />
         Content: <br />
@@ -53,6 +53,12 @@
                      </li>
                  }
                  </ul>
+        <br />
+        Event Starts On: <input type="date" asp-for="Post.StartsOn" /><br />
+        Evant Ends On: <input type="date" asp-for="Post.EndsOn" /><br />
+        Area Code of the event: <input type="number" asp-for="Post.PostCode" data-val="true"
+             data-val-required="The area code of the event is required."/><br />
+        Attachment: <input type="file" asp-for="Post.AttachedFile"/>
         <div>
             <input type="submit" value="Submit" />
         </div>

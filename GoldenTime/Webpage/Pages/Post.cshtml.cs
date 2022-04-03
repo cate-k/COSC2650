@@ -56,6 +56,9 @@ namespace Webpage.Pages
         {
             BuildPostModelComplexProperties();
 
+            if (!ModelState.IsValid)
+                return Page(); // TODO: Caitlen: CSS should be created so the failed items show the validation text;
+
             try
             {
                 // This is where we inspect the http post, bound properties on the model and save...
@@ -65,18 +68,24 @@ namespace Webpage.Pages
                     {
                         Content = Post.Content,
                         Subject = Post.Title,
-                        UserIdx = Helper.GetUserIndex(_contextFactory, "s3739099@student.rmit.edu.au") // <-- TODO: This is where we need claims from Sam's work.                 
-                        // TODO: The rest of properties...
+                        UserIdx = Helper.GetUserIndex(_contextFactory, "s3739099@student.rmit.edu.au"), // <-- TODO: This is where we need claims from Sam's work.                 
+                        StartingOn = Post.StartsOn,
+                        EndingOn = Post.EndsOn,
+                        LocationIdx = Helper.GetLocationIndex(_contextFactory, Post.PostCode)
                     };
-                    //TODO: Get all the selected categories from the post
-                    var selectedCategories = new List<POCO.Category>();
 
-                    selectedCategories.Add(new POCO.Category() { Idx = 1 }); // <-- this is fake, just for test
+                    // Fetch Categories selected and make the links.
+                    Helper.GetPostSelectedCategories(_contextFactory, Request.Form)
+                        .ForEach(c => p.PostCategories.Add(new PostCategories()
+                            { CategoryIdx = c.Idx, PostIdxNavigation = p }));
 
-                    // Make links
-                    selectedCategories.ForEach(c => p.PostCategories.Add(new PostCategories()
-                        { CategoryIdx = c.Idx, PostIdxNavigation = p }));
-
+                    // Upload file if exists
+                    if (Post.AttachedFile != null)
+                    {
+                        var attachment = Helper.CreateAttachment(_contextFactory, Post.AttachedFile, p);
+                        p.Attachments.Add(attachment);
+                    }
+                    
                     dbc.Posts.Add(p);
                     dbc.SaveChanges();
                 }
@@ -86,7 +95,7 @@ namespace Webpage.Pages
                 _logger.Log(LogLevel.Error, ex, string.Concat("PostModel:OnPost: ", ex.Message), new object[0]);
             }
 
-            return Page();
+            return Redirect("Index");
         }
     }
 

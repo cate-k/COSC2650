@@ -8,3 +8,27 @@
     <h1 class="display-4">Welcome @Model.Identity</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (Model.LastPosts.Count > 0) {
+    <div class="text-center">
+    <h1 class="display-4">Last 10 posts</h1>
+
+    <table>
+        <tr>
+            <th>Date posted</th><th>Title</th><th>Event</th><th>Starts</th><th>Ends</th><th>Posted by</th>
+        </tr>
+        @foreach (var post in Model.LastPosts)
+        {
+            <tr>
+                <td>@post.CreatedOn</td>
+                <td>@post.Subject</td>
+                <td>@post.Content</td>
+                <td>@post.StartingOn</td>
+                <td>@post.EndingOn</td>
+                <td>@post.FullName</td>
+            </tr>
+        }
+    </table>
+    </div>
+}
+
