@@ -46,10 +46,7 @@
     <None Remove="Shared\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EFModel\" />
     <Folder Include="PageObjects\" />
     <Folder Include="PageObjects\Post\" />
-    <Folder Include="POCO\" />
-    <Folder Include="Shared\" />
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@ namespace Webpage.EFModel
         public virtual DbSet<Preferences> Preferences { get; set; }
         public virtual DbSet<Response> Response { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Messages> Message { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -439,6 +440,49 @@ namespace Webpage.EFModel
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.LocationIdx)
                     .HasConstraintName("users_location_idx_fk");
+            });
+
+            modelBuilder.Entity<Messages>(entity =>
+            {
+                entity.HasKey(e => e.Idx)
+                    .HasName("message_pk");
+
+                entity.ToTable("message");
+
+                entity.HasIndex(e => e.Idx, "message_idx_uindex")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.SenderIdx, "message_userIdx_index");
+
+                entity.Property(e => e.Idx).HasColumnName("idx");
+
+                entity.Property(e => e.Message).HasColumnName("message");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnName("createdOn")
+                    .HasDefaultValueSql("(sysdatetime())");
+
+                entity.Property(e => e.ModifiedOn).HasColumnName("modifiedOn");
+
+                entity.Property(e => e.ParentIdx)
+                    .HasColumnName("parentIdx")
+                    .HasComment("If this is <> null then the post is a reply.\n");
+
+                entity.Property(e => e.Subject)
+                    .IsRequired()
+                    .HasMaxLength(1024)
+                    .HasColumnName("subject");
+
+               
+
+               // entity.HasOne(d => d.SenderIdxNavigation)
+               // .WithMany(p => p.PostReqResponses)
+               // .HasForeignKey(d => d.ResponderIdx)
+                //.OnDelete(DeleteBehavior.ClientSetNull)
+               // .HasConstraintName("postReqResponses_users_idx_fk");
+
+
+
             });
 
             OnModelCreatingPartial(modelBuilder);

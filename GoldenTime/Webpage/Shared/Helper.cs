@@ -135,5 +135,19 @@ namespace Webpage.Shared
                 return result;
             }
         }
+
+        public static List<POCO.Messages> GetMessages(IDbContextFactory<cosc2650Context> contextFactory)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var result = new List<POCO.Messages>();
+                dbc.Message
+                    //.Include(u => u.senderIdxNavigation)
+                    .OrderByDescending(p => p.CreatedOn)            
+                    .ToList()
+                    .ForEach(i => result.Add(POCO.Messages.ToPOCO(i)));
+                return result;
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Webpage.EFModel
 {
-    public partial class Message
+    public partial class Messages
     {
         [DisplayName("Message ID")]
         public int Idx { get; set; }
@@ -19,13 +19,13 @@ namespace Webpage.EFModel
         public string Subject { get; set; }
 
         [DisplayName("Message")]
-        public string MessageText { get; set; }
+        public string Message { get; set; }
 
         public int? ParentIdx { get; set; }
 
-        public virtual Message MessageIdxNavigation { get; set; }
-        public virtual Users senderIdxNavigation { get; set; }
-        public virtual Users receiverIdxNavigation { get; set; }
+        //public virtual Messages MessageIdxNavigation { get; set; }
+        //public virtual Users senderIdxNavigation { get; set; }
+        //public virtual Users receiverIdxNavigation { get; set; }
 
     }
 }

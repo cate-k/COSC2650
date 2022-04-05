@@ -1,0 +1,72 @@
+﻿@page
+@model Webpage.Pages.Messages.ViewMessagesModel
+
+@{
+    ViewData["Title"] = "ViewMessages";
+}
+
+<h1>ViewMessages</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].SenderIdx)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].ReceiverIdx)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].ModifiedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Messages[0].ParentIdx)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Messages) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenderIdx)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiverIdx)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentIdx)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
