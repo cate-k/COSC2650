@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Webpage.POCO
 {
-    public class Messages
+    public class Message
     {
         public int Idx { get; set; }
         public int SenderIdx { get; set; }
@@ -14,19 +15,20 @@ namespace Webpage.POCO
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string Subject { get; set; }
-        public string Message { get; set; }
+        [DisplayName("Message")]
+        public string Content { get; set; }
         public int? ParentIdx { get; set; }
 
         public string Filename { get; set; }
 
-        public Messages()
+        public Message()
 
         {
         }
 
-        public static Messages ToPOCO(EFModel.Messages message)
+        public static Message ToPOCO(EFModel.Messages message)
         {
-            return new Messages()
+            return new Message()
             {
                 Idx = message.Idx,
                 SenderIdx = message.SenderIdx,
@@ -34,11 +36,8 @@ namespace Webpage.POCO
                 CreatedOn = message.CreatedOn,
                 ModifiedOn = message.ModifiedOn,
                 Subject = message.Subject,
-                Message = message.Message,
+                Content = message.Content,
                 ParentIdx = message.ParentIdx,
-
-    
-      
             };
         }
     }

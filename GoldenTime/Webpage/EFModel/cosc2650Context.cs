@@ -23,7 +23,7 @@ namespace Webpage.EFModel
         public virtual DbSet<Preferences> Preferences { get; set; }
         public virtual DbSet<Response> Response { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Messages> Message { get; set; }
+        public virtual DbSet<Messages> Messages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -445,18 +445,18 @@ namespace Webpage.EFModel
             modelBuilder.Entity<Messages>(entity =>
             {
                 entity.HasKey(e => e.Idx)
-                    .HasName("message_pk");
+                    .HasName("messages_pk");
 
-                entity.ToTable("message");
+                entity.ToTable("messages");
 
-                entity.HasIndex(e => e.Idx, "message_idx_uindex")
+                entity.HasIndex(e => e.Idx, "messages_idx_uindex")
                     .IsUnique();
 
-                entity.HasIndex(e => e.SenderIdx, "message_userIdx_index");
+                entity.HasIndex(e => e.SenderIdx, "messages_userIdx_index");
 
                 entity.Property(e => e.Idx).HasColumnName("idx");
 
-                entity.Property(e => e.Message).HasColumnName("message");
+                //entity.Property(e => e.Content).HasColumnName("message");
 
                 entity.Property(e => e.CreatedOn)
                     .HasColumnName("createdOn")

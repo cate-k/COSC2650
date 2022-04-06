@@ -136,16 +136,17 @@ namespace Webpage.Shared
             }
         }
 
-        public static List<POCO.Messages> GetMessages(IDbContextFactory<cosc2650Context> contextFactory)
+        public static List<POCO.Message> GetMessages(IDbContextFactory<cosc2650Context> contextFactory)
         {
             using (var dbc = contextFactory.CreateDbContext())
             {
-                var result = new List<POCO.Messages>();
-                dbc.Message
+                var result = new List<POCO.Message>();
+                dbc.Messages
                     //.Include(u => u.senderIdxNavigation)
-                    .OrderByDescending(p => p.CreatedOn)            
+                    .OrderByDescending(p => p.CreatedOn)
+                    .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))//TODO: add claim
                     .ToList()
-                    .ForEach(i => result.Add(POCO.Messages.ToPOCO(i)));
+                    .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
                 return result;
             }
         }
