@@ -44,9 +44,11 @@
     <None Remove="PageModels\Post\" />
     <None Remove="POCO\" />
     <None Remove="Shared\" />
+    <None Remove="Pages\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PageObjects\" />
     <Folder Include="PageObjects\Post\" />
+    <Folder Include="Pages\Profile\" />
   </ItemGroup>
 </Project>
