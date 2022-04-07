@@ -150,5 +150,32 @@ namespace Webpage.Shared
                 return result;
             }
         }
+
+
+
+
+        public static List<POCO.User> GetUsers(IDbContextFactory<cosc2650Context> contextFactory)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var result = new List<POCO.User>();
+ 
+                    dbc.Users
+                    //.Include(u => u.UserIdxNavigation)
+                    //.Include(ul => ul.UserIdxNavigation.LocationIdxNavigation)
+                    //.Include(l => l.Email)
+                    //.OrderByDescending(p => p.CreatedOn)
+                    .Where(u => u.Idx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))
+                    .ToList()
+                    .ForEach( i => result.Add(POCO.User.ToPOCO(i)));
+
+
+                    return result;
+            }
+        }
+
+
+
+
     }
 }
