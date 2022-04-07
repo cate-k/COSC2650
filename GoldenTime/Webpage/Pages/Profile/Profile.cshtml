@@ -6,10 +6,27 @@
 
 
 <h1>Profile</h1>
-<h1>@Html.DisplayNameFor(model => model.Users[0].Idx)</h1>
-<h5>Change Passord</h5>
-    <button type="submit" name="showBox" value="Change">
-        <p>Change</p>
+
+@foreach (var item in Model.Users)
+{
+    <p>User Full Name:   @Html.DisplayFor(modelItem => item.FullName)</p>
+    <p>User Age:   @Html.DisplayFor(modelItem => item.Age)</p>
+    <p>User Mobile Number:   @Html.DisplayFor(modelItem => item.Mobile)</p>
+    <p>User Email:   @Html.DisplayFor(modelItem => item.Email)</p>
+}
+
+<br />
+<br />
+<br />
+<p>
+    To update profile information click <button type="submit" name="showBox" value="Change">
+        <p>Here</p>
     </button>
+</p>
 
 
+
+<br />
+<br />
+<br />
+<h5>User Messages</h5>
