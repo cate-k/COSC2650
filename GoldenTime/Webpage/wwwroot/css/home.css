@@ -1,0 +1,17 @@
+﻿.home-container {
+    display: flex;
+    margin-top: 5%;
+}
+
+.home-image {
+    width: 60%;
+    border-radius: 15px;
+}
+
+.home-text {
+    margin-left: 2%;
+}
+
+.home-container h2 {
+    font-family: "Open Sans Bold";
+}

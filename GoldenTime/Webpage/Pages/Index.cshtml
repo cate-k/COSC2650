@@ -1,34 +1,19 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Golden Time";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome @Model.Identity</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <link rel="stylesheet" href="~/css/home.css" />
+</head>
 
-@if (Model.LastPosts.Count > 0) {
-    <div class="text-center">
-    <h1 class="display-4">Last 10 posts</h1>
+<div class="home-container">
+    <img class="home-image" src="~/images/people-gathering.jpg" alt="People gathering" />
 
-    <table>
-        <tr>
-            <th>Date posted</th><th>Title</th><th>Event</th><th>Starts</th><th>Ends</th><th>Posted by</th>
-        </tr>
-        @foreach (var post in Model.LastPosts)
-        {
-            <tr>
-                <td>@post.CreatedOn</td>
-                <td>@post.Subject</td>
-                <td>@post.Content</td>
-                <td>@post.StartingOn</td>
-                <td>@post.EndingOn</td>
-                <td>@post.FullName</td>
-            </tr>
-        }
-    </table>
+    <div class="home-text">
+        <h2>Welcome to Golden Times</h2>
+        <p>Golden Times is a platform where people over the age of 60 can enjoy activites and interact with others who have similar interests and are around their age.</p>
+        <p class="small-text">Photo by <a href="https://unsplash.com/leahhetteberg">leah hetteberg</a> on <a href="https://unsplash.com/">Unsplash</a>.</p>
     </div>
-}
-
+</div>
