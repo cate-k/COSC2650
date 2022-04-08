@@ -1,66 +1,78 @@
 ﻿@page
 @model Webpage.Pages.PostModel
 @{
-    ViewData["Title"] = "Post";
+    ViewData["Title"] = "Create a Post";
 }
 
 @functions {
     public void ShowTree(List<POCO.Category> categories)
     {
-        <ul>
         @foreach (var category in categories)
         {
-            <li>
-                @category.Name
-                @if (category.Children.Any())
-                {
-                    ShowTree(category.Children);
-                }
-                else
-                {
-                    <input type="checkbox" id="@category.Idx" name="@category.Name" />
-                    <br />
-                }
-            </li>
+            @if (category.Children.Any())
+            {
+                ShowTree(category.Children);
+            }
+            else
+            {
+                <div class="category-item">
+                    <label class="category-label" for="@category.Idx">@category.Name</label>
+                    <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+                </div>
+            }
         }
-        </ul>
     }
 }
 
-<h1>@ViewData["Title"]</h1>
+<head>
+    <link rel="stylesheet" href="~/css/post.css" />
+</head>
 
-<div>
+<div class="post-container">
     <form id="NewPostForm" method="post" asp-action="SubmitPost" asp-controller="Post" enctype="multipart/form-data">
-        Title: <br />
-        <input asp-for="Post.Title" /><br />
-        Content: <br />
-        <textarea asp-for="Post.Content" style="width:250px;height:150px;"></textarea><br />
-        Categories:<br />
-                 <ul name="category" id="category" multiple>
-                     @foreach (var category in Model.AvailableCategories)
-                     {
-                     <li>
-                         @category.Name
-                         @if (category.Children.Any())
-                         {
-                             ShowTree(category.Children);
-                         }
-                         else
-                         {
-                             <input type="checkbox" id="@category.Idx" name="@category.Name" />
-                             <br />
-                         }
-                     </li>
-                 }
-                 </ul>
+        <h2>@ViewData["Title"]</h2>
+
+        <h5 class="field-labels">Title</h5>
+        <input class="fields" asp-for="Post.Title" placeholder="Enter title here..." />
+
+        <h5 class="field-labels">Description</h5>
+        <textarea class="fields-textarea" asp-for="Post.Content" placeholder="Enter description here..."></textarea>
+
+        <h5 class="field-labels">Categories</h5>
+        @foreach (var category in Model.AvailableCategories)
+        {
+            @if (category.Children.Any())
+            {
+                <span class="category-heading">@category.Name</span>
+                ShowTree(category.Children);
+            }
+            else
+            {
+                <div class="category-item">
+                    <label class="category-label" for="@category.Idx">@category.Name</label>
+                    <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+                </div>
+            }
+        }
+
+        <h5 class="field-labels">Event Start Date</h5>
+        <input class="fields" type="date" asp-for="Post.StartsOn" />
+
+        <h5 class="field-labels">Event End Date</h5>
+        <input class="fields" type="date" asp-for="Post.EndsOn" />
+
+        <h5 class="field-labels">Area Code of Event</h5>
+        <input class="fields" type="number" asp-for="Post.PostCode" data-val="true"
+               data-val-required="The area code of the event is required." placeholder="0000" />
         <br />
-        Event Starts On: <input type="date" asp-for="Post.StartsOn" /><br />
-        Evant Ends On: <input type="date" asp-for="Post.EndsOn" /><br />
-        Area Code of the event: <input type="number" asp-for="Post.PostCode" data-val="true"
-             data-val-required="The area code of the event is required."/><br />
-        Attachment: <input type="file" asp-for="Post.AttachedFile"/>
+
+        <h5 class="field-labels">Attachment</h5>
+        <input type="file" asp-for="Post.AttachedFile" />
+
         <div>
-            <input type="submit" value="Submit" />
+            <button class="publish-btn" type="submit">
+                <span>Publish post</span>
+            </button>
         </div>
     </form>
 </div>
