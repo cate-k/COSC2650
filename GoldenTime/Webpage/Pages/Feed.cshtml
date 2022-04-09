@@ -4,31 +4,34 @@
     ViewData["Title"] = "Feed";
 }
 
-@if (Model.LastPosts.Count > 0)
-{
-    <div class="text-center">
-        <h1 class="display-4">Last 10 posts</h1>
+<head>
+    <link rel="stylesheet" href="~/css/feed.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+</head>
 
-        <table>
-            <tr>
-                <th>Date posted</th>
-                <th>Title</th>
-                <th>Event</th>
-                <th>Starts</th>
-                <th>Ends</th>
-                <th>Posted by</th>
-            </tr>
-            @foreach (var post in Model.LastPosts)
-            {
-                <tr>
-                    <td>@post.CreatedOn</td>
-                    <td>@post.Subject</td>
-                    <td>@post.Content</td>
-                    <td>@post.StartingOn</td>
-                    <td>@post.EndingOn</td>
-                    <td>@post.FullName</td>
-                </tr>
-            }
-        </table>
+<div class="feed-container">
+    @foreach (var post in Model.LastPosts)
+    {
+    <div class="post-container">
+        <h3>@post.Subject</h3>
+        <p>@post.Content</p>
+
+        @if(post.StartingOn != null)
+        {
+            <i class="fa-regular fa-calendar"></i>
+            <span>Starts: @post.StartingOn</span>
+            <br />
+
+            <span class="ending-date">Ends: @post.EndingOn</span>
+            <br />
+        }
+
+        <i class="fa-solid fa-user"></i>
+        <span>
+            Posted by
+            <span class="uploader-name">@post.FullName</span>
+            • @post.CreatedOn
+        </span>
     </div>
-}
+    }
+</div>
