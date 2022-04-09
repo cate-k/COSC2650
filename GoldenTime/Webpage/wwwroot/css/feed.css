@@ -1,0 +1,19 @@
+﻿.feed-container h3,
+.uploader-name {
+    font-family: "Open Sans Bold";
+}
+
+.post-container {
+    border: 1px solid var(--colour-gallery);
+    border-radius: 5px;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.ending-date {
+    display: inline-block;
+    margin-left: 18.5px;
+    margin-bottom: 10px;
+}
