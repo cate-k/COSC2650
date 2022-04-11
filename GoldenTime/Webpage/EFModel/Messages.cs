@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+
+#nullable disable
 
 namespace Webpage.EFModel
 {
@@ -7,7 +10,7 @@ namespace Webpage.EFModel
     {
         public Messages()
         {
-
+            InverseParentIdxNavigation = new HashSet<Messages>();
         }
 
         [DisplayName("Message ID")]
@@ -28,9 +31,9 @@ namespace Webpage.EFModel
 
         public int? ParentIdx { get; set; }
 
-       // public virtual Messages MessageIdxNavigation { get; set; }
-       // public virtual Users senderIdxNavigation { get; set; }
-       // public virtual Users receiverIdxNavigation { get; set; }
-
+        public virtual Messages ParentIdxNavigation { get; set; }
+        public virtual Users ReceiverIdxNavigation { get; set; }
+        public virtual Users SenderIdxNavigation { get; set; }
+        public virtual ICollection<Messages> InverseParentIdxNavigation { get; set; }
     }
 }

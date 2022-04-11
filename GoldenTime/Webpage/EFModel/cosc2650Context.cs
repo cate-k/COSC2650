@@ -8,6 +8,10 @@ namespace Webpage.EFModel
 {
     public partial class cosc2650Context : DbContext
     {
+        public cosc2650Context()
+        {
+        }
+
         public cosc2650Context(DbContextOptions<cosc2650Context> options)
             : base(options)
         {
@@ -16,6 +20,7 @@ namespace Webpage.EFModel
         public virtual DbSet<Attachments> Attachments { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Location> Location { get; set; }
+        public virtual DbSet<Messages> Messages { get; set; }
         public virtual DbSet<PostCategories> PostCategories { get; set; }
         public virtual DbSet<PostReqResponses> PostReqResponses { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
@@ -23,15 +28,12 @@ namespace Webpage.EFModel
         public virtual DbSet<Preferences> Preferences { get; set; }
         public virtual DbSet<Response> Response { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Messages> Messages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // To protect potentially sensitive information in your connection string, you should move it out of source code.
-                // You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148.
-                // For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=tcp:cosc2650-sp12022.database.windows.net,1433;Initial Catalog=cosc2650;Persist Security Info=False;User ID=cosc2650-sp12022;Password=RIPAntonov!;MultipleActiveResultSets=True;");
             }
         }
@@ -54,9 +56,7 @@ namespace Webpage.EFModel
 
                 entity.Property(e => e.Content)
                     .IsRequired()
-                    .HasMaxLength(1)
-                    .HasColumnName("content")
-                    .IsFixedLength(true);
+                    .HasColumnName("content");
 
                 entity.Property(e => e.CreatedOn)
                     .HasColumnName("createdOn")
@@ -157,6 +157,59 @@ namespace Webpage.EFModel
                 entity.Property(e => e.WeakLongitude)
                     .HasColumnType("decimal(10, 8)")
                     .HasColumnName("weakLongitude");
+            });
+
+            modelBuilder.Entity<Messages>(entity =>
+            {
+                entity.HasKey(e => e.Idx)
+                    .HasName("messages_pk");
+
+                entity.ToTable("messages");
+
+                entity.HasIndex(e => e.Idx, "messages_idx_uindex")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.ReceiverIdx, "messages_receiverIdx_index");
+
+                entity.HasIndex(e => e.SenderIdx, "messages_senderIdx_index");
+
+                entity.Property(e => e.Idx).HasColumnName("idx");
+
+                entity.Property(e => e.Content).HasColumnName("content");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnName("createdOn")
+                    .HasDefaultValueSql("(sysdatetime())");
+
+                entity.Property(e => e.ModifiedOn).HasColumnName("modifiedOn");
+
+                entity.Property(e => e.ParentIdx).HasColumnName("parentIdx");
+
+                entity.Property(e => e.ReceiverIdx).HasColumnName("receiverIdx");
+
+                entity.Property(e => e.SenderIdx).HasColumnName("senderIdx");
+
+                entity.Property(e => e.Subject)
+                    .IsRequired()
+                    .HasMaxLength(1024)
+                    .HasColumnName("subject");
+
+                entity.HasOne(d => d.ParentIdxNavigation)
+                    .WithMany(p => p.InverseParentIdxNavigation)
+                    .HasForeignKey(d => d.ParentIdx)
+                    .HasConstraintName("messages_messages_idx_fk");
+
+                entity.HasOne(d => d.ReceiverIdxNavigation)
+                    .WithMany(p => p.MessagesReceiverIdxNavigation)
+                    .HasForeignKey(d => d.ReceiverIdx)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("messages_receiver_idx_fk");
+
+                entity.HasOne(d => d.SenderIdxNavigation)
+                    .WithMany(p => p.MessagesSenderIdxNavigation)
+                    .HasForeignKey(d => d.SenderIdx)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("messages_sender_idx_fk");
             });
 
             modelBuilder.Entity<PostCategories>(entity =>
@@ -430,6 +483,8 @@ namespace Webpage.EFModel
                     .HasMaxLength(256)
                     .HasColumnName("fullName");
 
+                entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
+
                 entity.Property(e => e.LocationIdx).HasColumnName("locationIdx");
 
                 entity.Property(e => e.Mobile)
@@ -440,49 +495,6 @@ namespace Webpage.EFModel
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.LocationIdx)
                     .HasConstraintName("users_location_idx_fk");
-            });
-
-            modelBuilder.Entity<Messages>(entity =>
-            {
-                entity.HasKey(e => e.Idx)
-                    .HasName("messages_pk");
-
-                entity.ToTable("messages");
-
-                entity.HasIndex(e => e.Idx, "messages_idx_uindex")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.SenderIdx, "messages_userIdx_index");
-
-                entity.Property(e => e.Idx).HasColumnName("idx");
-
-                //entity.Property(e => e.Content).HasColumnName("message");
-
-                entity.Property(e => e.CreatedOn)
-                    .HasColumnName("createdOn")
-                    .HasDefaultValueSql("(sysdatetime())");
-
-                entity.Property(e => e.ModifiedOn).HasColumnName("modifiedOn");
-
-                entity.Property(e => e.ParentIdx)
-                    .HasColumnName("parentIdx")
-                    .HasComment("If this is <> null then the post is a reply.\n");
-
-                entity.Property(e => e.Subject)
-                    .IsRequired()
-                    .HasMaxLength(1024)
-                    .HasColumnName("subject");
-
-               
-
-               // entity.HasOne(d => d.SenderIdxNavigation)
-               // .WithMany(p => p.PostReqResponses)
-               // .HasForeignKey(d => d.ResponderIdx)
-                //.OnDelete(DeleteBehavior.ClientSetNull)
-               // .HasConstraintName("postReqResponses_users_idx_fk");
-
-
-
             });
 
             OnModelCreatingPartial(modelBuilder);
