@@ -8,9 +8,9 @@ namespace Webpage.EFModel
 {
     public partial class cosc2650Context : DbContext
     {
-        public cosc2650Context()
-        {
-        }
+        //public cosc2650Context()
+        //{
+        //}
 
         public cosc2650Context(DbContextOptions<cosc2650Context> options)
             : base(options)
