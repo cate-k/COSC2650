@@ -1,0 +1,27 @@
+﻿.messages-container span {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.button {
+    color: var(--colour-white);
+    background-color: var(--colour-tulip-tree);
+    border: 1px solid var(--colour-tulip-tree);
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.button:hover {
+    color: var(--colour-white);
+    background-color: var(--colour-cream-can);
+    border: 1px solid var(--colour-cream-can);
+    text-decoration: none;
+}
+
+.fa-pencil {
+    margin-left: 15px;
+    margin-right: 10px;
+}
