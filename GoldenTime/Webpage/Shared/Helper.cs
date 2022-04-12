@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using Webpage.EFModel;
 
 namespace Webpage.Shared
@@ -147,7 +145,7 @@ namespace Webpage.Shared
                     .Include(u => u.SenderIdxNavigation) // These two Include statements tell EF to go one level deeper and retrieve navigational items
                     .Include(u => u.ReceiverIdxNavigation)
                     .OrderByDescending(p => p.CreatedOn)
-                    .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, GetUserEmail()))//TODO: add claim
+                    .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))//TODO: add claim
                     .ToList()
                     .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
                 return result;
@@ -172,15 +170,7 @@ namespace Webpage.Shared
             }
         }
 
-        public static string GetUserEmail()
-        {
-          
-            var json = new WebClient().DownloadString("https://golden-time.azurewebsites.net/.auth/me");
-            var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            var email = values["user_id"];
-            return email;
-        }
-        
+
 
 
     }
