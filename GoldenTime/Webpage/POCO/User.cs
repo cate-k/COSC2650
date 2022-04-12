@@ -11,19 +11,14 @@ namespace Webpage.POCO
         public int? LocationIdx { get; set; }
         public string Mobile { get; set; }
 
-
         public User()
-
         {
 
         }
 
-
-
         public static User ToPOCO(EFModel.Users User)
         {
             return new User()
-
             {
                  Idx = User.Idx,
                  Email = User.Email,
@@ -31,16 +26,7 @@ namespace Webpage.POCO
                  Age = User.Age,
                  LocationIdx = User.LocationIdx,
                  Mobile = User.Mobile
-
-
             };
-
-
-        }
-
-        
+        }       
     }
 }
-    
-
-    
