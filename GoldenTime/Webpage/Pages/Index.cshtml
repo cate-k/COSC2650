@@ -8,15 +8,6 @@
     <link rel="stylesheet" href="~/css/home.css" />
 </head>
 
-@*Debug checker if user is logged in  *@
-@if (User.Identity.IsAuthenticated)
-{
-<div>
-    Hello, @User.Identity.Name
-</div>
-}
-
-
 <div class="home-container">
 
     <img class="home-image" src="~/images/people-gathering.jpg" alt="People gathering" />

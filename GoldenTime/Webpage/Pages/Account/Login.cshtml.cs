@@ -42,12 +42,7 @@ namespace Webpage.Pages.Account
             }
             return Page();
         }
-
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync("GoldenCookieAuth");
-            return RedirectToAction("/Index");
-        }
+            
 
     }
     public class Credential
