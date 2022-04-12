@@ -35,6 +35,11 @@
                         </li>
 
                         <li class="nav-item">
+                            
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                            }
                             <a class="nav-link text-dark" href="https://golden-time.azurewebsites.net/.auth/login/aad?post_login_redirect_uri=/">Login</a>
                         </li>
                         <li class="nav-item">
@@ -47,6 +52,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            Hello, @User.Identity.Name !
             @RenderBody()
         </main>
     </div>

@@ -9,6 +9,8 @@ namespace Webpage.EFModel
     {
         public Users()
         {
+            MessagesReceiverIdxNavigation = new HashSet<Messages>();
+            MessagesSenderIdxNavigation = new HashSet<Messages>();
             PostReqResponses = new HashSet<PostReqResponses>();
             Posts = new HashSet<Posts>();
             Preferences = new HashSet<Preferences>();
@@ -20,8 +22,11 @@ namespace Webpage.EFModel
         public int? Age { get; set; }
         public int? LocationIdx { get; set; }
         public string Mobile { get; set; }
+        public int IsAdmin { get; set; }
 
         public virtual Location LocationIdxNavigation { get; set; }
+        public virtual ICollection<Messages> MessagesReceiverIdxNavigation { get; set; }
+        public virtual ICollection<Messages> MessagesSenderIdxNavigation { get; set; }
         public virtual ICollection<PostReqResponses> PostReqResponses { get; set; }
         public virtual ICollection<Posts> Posts { get; set; }
         public virtual ICollection<Preferences> Preferences { get; set; }

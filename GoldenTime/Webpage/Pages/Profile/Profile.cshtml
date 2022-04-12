@@ -15,8 +15,7 @@
     <p>User Email:   @Html.DisplayFor(modelItem => item.Email)</p>
 }
 
-<br />
-<br />
+
 <br />
 <p>
     To update profile information click <button type="submit" name="showBox" value="Change">
@@ -24,9 +23,57 @@
     </button>
 </p>
 
+<br />
+<br />
+@foreach (var item in Model.Users)
+{
+    <h4>@Html.DisplayFor(modelItem => item.FullName): Posts</h4>
 
+}
 
 <br />
 <br />
+@foreach (var item in Model.Users)
+{
+    <h4>@Html.DisplayFor(modelItem => item.FullName): Messages</h4>
+
+}
+
 <br />
-<h5>User Messages</h5>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Messages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderIdx)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceiverIdx)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ParentIdx)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

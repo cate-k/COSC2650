@@ -21,8 +21,7 @@ namespace Webpage.Pages.MessagePages
         {
             _contextFactory = contextFactory;
         }
-
-       
+              
 
         public void OnGet()
         {

@@ -10,8 +10,8 @@ namespace Webpage.POCO
     {
         public int Idx { get; set; }
         public int SenderIdx { get; set; }
-
         public int ReceiverIdx { get; set; }
+
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string Subject { get; set; }
@@ -21,8 +21,13 @@ namespace Webpage.POCO
 
         public string Filename { get; set; }
 
-        public Message()
+        // Added POCO releationship for senders and receivers
+        [DisplayName("Sender")]
+        public POCO.User Sender { get; set; }
+        [DisplayName("Receiver")]
+        public POCO.User Receiver { get; set; }
 
+        public Message()
         {
         }
 
@@ -38,6 +43,8 @@ namespace Webpage.POCO
                 Subject = message.Subject,
                 Content = message.Content,
                 ParentIdx = message.ParentIdx,
+                Sender = POCO.User.ToPOCO(message.SenderIdxNavigation),
+                Receiver = POCO.User.ToPOCO(message.ReceiverIdxNavigation)
             };
         }
     }

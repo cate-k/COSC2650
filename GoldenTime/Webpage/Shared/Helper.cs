@@ -142,7 +142,8 @@ namespace Webpage.Shared
             {
                 var result = new List<POCO.Message>();
                 dbc.Messages
-                    //.Include(u => u.senderIdxNavigation)
+                    .Include(u => u.SenderIdxNavigation) // These two Include statements tell EF to go one level deeper and retrieve navigational items
+                    .Include(u => u.ReceiverIdxNavigation)
                     .OrderByDescending(p => p.CreatedOn)
                     .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))//TODO: add claim
                     .ToList()
@@ -154,22 +155,17 @@ namespace Webpage.Shared
 
 
 
+
+        //Helper function to get the user information
         public static List<POCO.User> GetUsers(IDbContextFactory<cosc2650Context> contextFactory)
         {
             using (var dbc = contextFactory.CreateDbContext())
             {
                 var result = new List<POCO.User>();
- 
                     dbc.Users
-                    //.Include(u => u.UserIdxNavigation)
-                    //.Include(ul => ul.UserIdxNavigation.LocationIdxNavigation)
-                    //.Include(l => l.Email)
-                    //.OrderByDescending(p => p.CreatedOn)
                     .Where(u => u.Idx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))
                     .ToList()
                     .ForEach( i => result.Add(POCO.User.ToPOCO(i)));
-
-
                     return result;
             }
         }
