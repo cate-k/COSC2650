@@ -30,20 +30,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/MessagePages/ViewMessages">Messages</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Profile/Profile">Profile</a>
                         </li>
 
                         <li class="nav-item">
-                            
-                            @if (User.Identity.IsAuthenticated)
-                            {
 
-                            }
-                            <a class="nav-link text-dark" href="https://golden-time.azurewebsites.net/.auth/login/aad?post_login_redirect_uri=/">Login</a>
+                           @* <a class="nav-link text-dark" href="https://golden-time.azurewebsites.net/.auth/login/aad?post_login_redirect_uri=/">Login</a>*@
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://golden-time.azurewebsites.net/.auth/logout?post_logout_redirect_uri=/">Logout</a>
+                            @* <a class="nav-link text-dark" href="https://golden-time.azurewebsites.net/.auth/logout?post_logout_redirect_uri=/">Logout</a>*@
+                          
                         </li>
                     </ul>
                 </div>
@@ -51,9 +50,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            Hello, @User.Identity.Name !
-            @RenderBody()
+        @RenderBody()
         </main>
     </div>
 

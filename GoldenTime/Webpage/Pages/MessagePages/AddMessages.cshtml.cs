@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Webpage.EFModel;
 using Webpage.POCO;
 using Webpage.Shared;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 namespace Webpage.Pages.MessagePages
@@ -71,6 +73,9 @@ namespace Webpage.Pages.MessagePages
             }
 
             return Redirect("ViewMessages");
-        }
+        }       
+
     }
+   
+    
 }

@@ -14,6 +14,7 @@ namespace Webpage.Pages
 {
     public class IndexModel : PageModel
     {
+
         private readonly ILogger<IndexModel> _logger;
         private readonly IDbContextFactory<cosc2650Context> _contextFactory;
         public string Identity;
@@ -32,5 +33,7 @@ namespace Webpage.Pages
             Identity = User.Identity.Name;
             LastPosts = Helper.GetPosts(_contextFactory);
         }
+
+
     }
 }
