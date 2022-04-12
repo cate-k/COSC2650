@@ -146,7 +146,8 @@ namespace Webpage.Shared
             {
                 var result = new List<POCO.Message>();
                 dbc.Messages
-                    //.Include(u => u.senderIdxNavigation)
+                    .Include(u => u.SenderIdxNavigation) // These two Include statements tell EF to go one level deeper and retrieve navigational items
+                    .Include(u => u.ReceiverIdxNavigation)
                     .OrderByDescending(p => p.CreatedOn)
                     .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))//TODO: add claim
                     .ToList()

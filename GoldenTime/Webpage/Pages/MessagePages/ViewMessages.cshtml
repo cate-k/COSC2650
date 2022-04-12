@@ -15,10 +15,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Messages[0].SenderIdx)
+                @Html.DisplayNameFor(model => model.Messages[0].Sender)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Messages[0].ReceiverIdx)
+                @Html.DisplayNameFor(model => model.Messages[0].Receiver)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Messages[0].CreatedOn)
@@ -42,10 +42,10 @@
 @foreach (var item in Model.Messages) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SenderIdx)
+                @Html.DisplayFor(modelItem => item.Sender.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReceiverIdx)
+                @Html.DisplayFor(modelItem => item.Receiver.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedOn)
