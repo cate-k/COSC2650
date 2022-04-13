@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 using Webpage.EFModel;
 
 namespace Webpage
@@ -35,7 +36,31 @@ namespace Webpage
             services.AddDbContextFactory<cosc2650Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddRazorPages();
+            string[] initialScopes = Configuration.GetValue<string>("UserApiOne:ScopeForAccessToken")?.Split(' ');
+/*
+            //added by sam 11/04/2022
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration, "AzureAd")
+        .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+        .AddInMemoryTokenCaches();
+*/
+
+            services.AddAuthentication("GoldenCookieAuth").AddCookie("GoldenCookieAuth", options=> 
+            {
+                options.Cookie.Name = "GoldenCookieAuth";
+            });
+           services.AddRazorPages();
+            /*
+            //added by sam 11/04/2022
+            services.AddRazorPages().AddMvcOptions(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    //.RequireAuthenticatedUser()
+                    .Require
+                    .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).AddMicrosoftIdentityUI();
+            */
+
         } 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

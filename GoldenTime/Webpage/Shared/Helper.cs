@@ -5,6 +5,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Webpage.EFModel;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+
 
 namespace Webpage.Shared
 {
@@ -169,6 +173,8 @@ namespace Webpage.Shared
                     return result;
             }
         }
+
+        
 
 
 
