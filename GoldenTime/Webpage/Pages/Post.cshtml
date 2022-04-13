@@ -5,21 +5,27 @@
 }
 
 @functions {
+    public void ShowTreeScrollable(List<POCO.Category> categories)
+    {
+        <div class="scrollable">
+            @foreach (var category in categories)
+            {
+                    <div class="category-item">
+                        <label class="category-label" for="@category.Idx">@category.Name</label>
+                        <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+                    </div>
+            }
+        </div>
+    }
+
     public void ShowTree(List<POCO.Category> categories)
     {
         @foreach (var category in categories)
         {
-            @if (category.Children.Any())
-            {
-                ShowTree(category.Children);
-            }
-            else
-            {
-                <div class="category-item">
-                    <label class="category-label" for="@category.Idx">@category.Name</label>
-                    <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
-                </div>
-            }
+            <div class="category-item">
+                <label class="category-label" for="@category.Idx">@category.Name</label>
+                <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+            </div>
         }
     }
 }
@@ -44,14 +50,13 @@
             @if (category.Children.Any())
             {
                 <span class="category-heading">@category.Name</span>
-                ShowTree(category.Children);
-            }
-            else
-            {
-                <div class="category-item">
-                    <label class="category-label" for="@category.Idx">@category.Name</label>
-                    <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
-                </div>
+
+                if (category.Children.Count >= 3)
+                {
+                    ShowTreeScrollable(category.Children);
+                } else {
+                    ShowTree(category.Children);
+                }
             }
         }
 

@@ -70,6 +70,17 @@
     font-weight: bold;
 }
 
+.scrollable {
+    height: 105px;
+    width: 52%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.scrollable .category-item {
+    width: 99%;
+}
+
 .publish-btn {
     background-color: var(--colour-tulip-tree);
     color: var(--colour-white);
