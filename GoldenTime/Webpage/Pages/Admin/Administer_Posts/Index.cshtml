@@ -1,0 +1,84 @@
+﻿@page
+@model Webpage.Pages.Admin.Administer_Posts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].ModifiedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].StartingOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].EndingOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].LocationIdxNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].ParentIdxNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts[0].UserIdxNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Posts) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationIdxNavigation.AreaCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentIdxNavigation.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserIdxNavigation.Email)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

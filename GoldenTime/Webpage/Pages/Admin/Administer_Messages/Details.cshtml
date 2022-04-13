@@ -1,0 +1,61 @@
+﻿@page
+@model Webpage.Pages.Admin.Administer_Messages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Messages</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.CreatedOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.CreatedOn)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.ModifiedOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.ModifiedOn)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.Subject)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.Subject)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.ParentIdxNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.ParentIdxNavigation.Subject)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.ReceiverIdxNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.ReceiverIdxNavigation.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages.SenderIdxNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.SenderIdxNavigation.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Messages.Idx">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
