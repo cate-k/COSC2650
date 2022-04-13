@@ -146,7 +146,7 @@ namespace Webpage.Shared
                 dbc.Messages
                     //.Include(u => u.senderIdxNavigation)
                     .OrderByDescending(p => p.CreatedOn)
-                    .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, GetUserEmail()))//TODO: add claim
+                    .Where(u => u.ReceiverIdx == Helper.GetUserIndex(contextFactory, "s3820255@student.rmit.edu.au"))//TODO: add claim
                     .ToList()
                     .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
                 return result;
@@ -171,14 +171,7 @@ namespace Webpage.Shared
             }
         }
 
-        public static string GetUserEmail()
-        {
-          
-            var json = new WebClient().DownloadString("https://golden-time.azurewebsites.net/.auth/me");
-            var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            var email = values["user_id"];
-            return email;
-        }
+
         
 
 

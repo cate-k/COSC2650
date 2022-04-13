@@ -49,7 +49,6 @@
   <ItemGroup>
     <Folder Include="PageObjects\" />
     <Folder Include="PageObjects\Post\" />
-    <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Profile\" />
   </ItemGroup>
 </Project>
