@@ -15,6 +15,7 @@ namespace Webpage.Pages.Profile
         //context factory creation
         private readonly IDbContextFactory<cosc2650Context> _contextFactory;
         public string Identity;
+        string loggedIn = "no";
 
         //lists to store the pulls from DB
         public List<POCO.User> Users;
@@ -28,12 +29,32 @@ namespace Webpage.Pages.Profile
 
 
         //on load sending to view
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Identity = User.Identity.Name;
-            Users = Helper.GetUsers(_contextFactory);
-            Messages = Helper.GetMessages(_contextFactory);
+            
+           
+            if (loggedIn == "yes")
+            {
+                Identity = User.Identity.Name;
+                Users = Helper.GetUsers(_contextFactory);
+                Messages = Helper.GetMessages(_contextFactory);
+                return Page();
+            }
+            else
+            {
+                return Redirect("/Profile/SecondProfile");
+            }
+            
         }
+
+
+
+        public void OnPost()
+        { }
+
+
+
+        
 
 
 
