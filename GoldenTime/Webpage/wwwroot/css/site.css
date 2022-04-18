@@ -55,6 +55,12 @@ a:hover {
   color: var(--colour-white);
   background-color: var(--colour-cream-can);
   border-color: var(--colour-tulip-tree);
+  transition: 0.5s;
+}
+
+.btn-primary:hover {
+    background-color: var(--colour-cream-can);
+    border-color: var(--colour-cream-can);
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -63,7 +69,7 @@ a:hover {
   border-color: var(--colour-tulip-tree);
 }
 
-button {
+.animated-button {
     background-color: var(--colour-tulip-tree);
     color: var(--colour-white);
     border: 0;
@@ -76,13 +82,13 @@ button {
     transition: all 0.5s;
 }
 
-button span {
+.animated-button span {
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-button span:after {
+.animated-button span:after {
     content: "\00bb";
     position: absolute;
     opacity: 0;
@@ -91,14 +97,38 @@ button span:after {
     transition: 0.5s;
 }
 
-button:hover span {
+.animated-button:hover span {
     color: var(--colour-white);
     padding-right: 25px;
 }
 
-button:hover span:after {
+.animated-button:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+.regular-btn {
+    color: var(--colour-white);
+    background-color: var(--colour-tulip-tree);
+    border: 0;
+    border-radius: 5px;
+    margin-left: 8px;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.regular-btn:hover {
+    color: var(--colour-white);
+    background-color: var(--colour-cream-can);
+}
+
+.login-status {
+    width: 250px;
+}
+
+.login-status span {
+    font-size: 1.2rem;
+    margin-left: 5px;
 }
 
 /* Sticky footer styles
