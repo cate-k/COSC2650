@@ -12,27 +12,43 @@
 <div class="feed-container">
     @foreach (var post in Model.LastPosts)
     {
-    <div class="post-container">
-        <h3>@post.Subject</h3>
-        <p>@post.Content</p>
+        <div class="post-container">
+            <h3>@post.Subject</h3>
+            <p>@post.Content</p>
 
-        @if(post.StartingOn != null)
-        {
-            <i class="fa-regular fa-calendar"></i>
-            <span>Starts: @post.StartingOn</span>
-            <br />
+            @if(post.StartingOn != null)
+            {
+                <i class="fa-regular fa-calendar"></i>
+                <span>Starts: @post.StartingOn</span>
+                <br />
 
-            <span class="ending-date">Ends: @post.EndingOn</span>
-            <br />
-        }
+                <span class="ending-date">Ends: @post.EndingOn</span>
+                <br />
+            }
 
-        <i class="fa-solid fa-user"></i>
-        <span>
-            Posted by
-            <span class="uploader-name">@post.FullName</span>
-            • @post.CreatedOn
-        </span>
-    </div>
+            <i class="fa-solid fa-user"></i>
+            <span>
+                Posted by
+                <span class="uploader-name">@post.FullName</span>
+                • @post.CreatedOn
+            </span>
+        
+            @if (post.Attachments.Any())
+            {
+                <img src="data:image/png;base64,@post.Attachments[0].WebContent" width="80" height="80" alt="@post.Filename" />
+            }
+        
+            @if (post.Categories.Any())
+            {
+                foreach (var postCategory in post.Categories)
+                {
+                    <button>@postCategory.Name</button>
+                }
+            }
+            
+        </div>
+        
+        
     }
 </div>
 <br />

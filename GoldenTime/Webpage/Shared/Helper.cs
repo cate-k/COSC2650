@@ -5,10 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Webpage.EFModel;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
-
+using System.Threading.Tasks;
 
 namespace Webpage.Shared
 {
@@ -25,7 +22,7 @@ namespace Webpage.Shared
         private static List<POCO.Category> CACHED_CATEGORY_LIST = null; //Make sure we need to init static property.
 
         // Private, build flat categories
-        private static List<POCO.Category> GetCategoriesFlat(IDbContextFactory<cosc2650Context> contextFactory)
+        public static List<POCO.Category> GetCategoriesFlat(IDbContextFactory<cosc2650Context> contextFactory)
         {
             if (CACHED_CATEGORY_FLAT_LIST != null)
                 return CACHED_CATEGORY_FLAT_LIST;
@@ -40,7 +37,7 @@ namespace Webpage.Shared
                 // All Categories
                 dbc.Category.Where(c => c.CategoryType.Equals(POST_CATEGORY_MATCH))
                     .ToList()
-                    .ForEach(c => CACHED_CATEGORY_FLAT_LIST.Add(POCO.Category.ToPOCO(c)));
+                    .ForEach(c => CACHED_CATEGORY_FLAT_LIST.Add(POCO.Category.ToPOCO(c, contextFactory)));
             }
 
             return CACHED_CATEGORY_FLAT_LIST;
@@ -91,11 +88,11 @@ namespace Webpage.Shared
         // Creates and adds to Attachments,
         // but does not store/persist.
         // The class is returned as EF entity.
-        public static Attachments CreateAttachment(IDbContextFactory<cosc2650Context> contextFactory, IFormFile attachedFile, Posts post)
+        public static async Task<Attachments> CreateAttachment(IDbContextFactory<cosc2650Context> contextFactory, IFormFile attachedFile, Posts post)
         {
             using (var stream = new MemoryStream())
             {
-                attachedFile.CopyToAsync(stream);
+                await attachedFile.CopyToAsync(stream);
                 stream.Position = 0;
 
                 using (var dbc = contextFactory.CreateDbContext())
@@ -124,17 +121,38 @@ namespace Webpage.Shared
         // Get last x posts
         public static List<POCO.Post> GetPosts(IDbContextFactory<cosc2650Context> contextFactory, int topItems = 10)
         {
+            // Refactored; Multiple Includes() cause cartesian product explosion and exponentially degraded performance
+            // with each additional item load. 
+            // Loads non-lazy what is needed only
             using (var dbc = contextFactory.CreateDbContext())
             {
+                dbc.ChangeTracker.LazyLoadingEnabled = false;
+
                 var result = new List<POCO.Post>();
-                dbc.Posts
-                    .Include(u => u.UserIdxNavigation)
-                        .Include(ul => ul.UserIdxNavigation.LocationIdxNavigation)
-                    .Include(l => l.LocationIdxNavigation)
+                var p = dbc.Posts
                     .OrderByDescending(p => p.CreatedOn)
-                    .Take(topItems)
-                    .ToList()
-                    .ForEach(i => result.Add(POCO.Post.ToPOCO(i)));
+                    .Take(topItems);
+                var postIndexes = p.Select(f => f.Idx);
+                var userIndexes = p.Select(f=> f.UserIdx).Distinct();
+                var locationIndexes = p.Select(f => f.LocationIdx).Distinct();
+                var attachmentIndexes = dbc.Attachments.Where(att => postIndexes.Contains(att.PostIdx))
+                    .Select(attidx => attidx.Idx).Distinct();
+                var categoryIndexes = dbc.PostCategories.Where(pca => postIndexes.Contains(pca.PostIdx))
+                    .Select(catidx => catidx.CategoryIdx).Distinct();
+
+                dbc.Users.Where(u => userIndexes.Contains(u.Idx))
+                    .Include(ul => ul.LocationIdxNavigation)
+                    .Load();
+                dbc.Location.Where(u => locationIndexes.Contains(u.Idx))
+                    .Load();
+                dbc.Attachments.Where(u => attachmentIndexes.Contains(u.Idx))
+                    .Load();
+                dbc.PostCategories.Where(u => postIndexes.Contains(u.PostIdx))
+                    .Load();
+                dbc.Category.Where(u => categoryIndexes.Contains(u.Idx))
+                    .Load();
+                
+                p.ToList().ForEach(i => result.Add(POCO.Post.ToPOCO(i, contextFactory)));
 
                 return result;
             }
@@ -156,10 +174,6 @@ namespace Webpage.Shared
             }
         }
 
-
-
-
-
         //Helper function to get the user information
         public static List<POCO.User> GetUsers(IDbContextFactory<cosc2650Context> contextFactory)
         {
@@ -174,10 +188,18 @@ namespace Webpage.Shared
             }
         }
 
-        
-
-
-
+        public static string ConvertToB64(byte[] imageData)
+        {
+            try
+            {
+                return Convert.ToBase64String(imageData, 0, imageData.Length);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return string.Empty;
+            }
+        }
 
     }
 }

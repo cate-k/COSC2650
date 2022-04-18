@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using Webpage.EFModel;
+using Webpage.Shared;
+
 namespace Webpage.POCO
 {
     public class Post
@@ -22,13 +29,17 @@ namespace Webpage.POCO
         public string PostLocationCode { get; set; }
         public string Filename { get; set; }
 
-        public Post()
+        public List<Attachment> Attachments { get; set; }
+        public List<Category> Categories { get; set; }
 
+        public Post()
         {
+            Attachments = new List<Attachment>();
+            Categories = new List<Category>();
         }
 
-        public static Post ToPOCO(EFModel.Posts post) {
-            return new Post()
+        public static Post ToPOCO(EFModel.Posts post, IDbContextFactory<cosc2650Context> dbf) {
+            var p = new Post()
             {
                 Idx = post.Idx,
                 UserIdx = post.UserIdx,
@@ -45,9 +56,15 @@ namespace Webpage.POCO
                 Age = post.UserIdxNavigation.Age,
                 Mobile = post.UserIdxNavigation.Mobile,
                 PostLocationCode = post.LocationIdxNavigation.AreaCode,
-                UserLocationCode = post.UserIdxNavigation.LocationIdxNavigation.AreaCode,
-                //TODO: Attachments, Categories 
+                UserLocationCode = post.UserIdxNavigation.LocationIdxNavigation.AreaCode
             };
+
+            var postCategories = post.PostCategories.Select(i => i.CategoryIdx);
+            p.Categories.AddRange(Helper.GetCategoriesFlat(dbf).Where(c => postCategories.Contains(c.Idx)));
+            post.Attachments.ToList()
+                .ForEach(a => p.Attachments.Add(Attachment.ToPOCO(a)));
+            
+            return p;
         }
     }
 }

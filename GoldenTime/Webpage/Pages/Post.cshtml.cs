@@ -83,7 +83,7 @@ namespace Webpage.Pages
                     if (Post.AttachedFile != null)
                     {
                         var attachment = Helper.CreateAttachment(_contextFactory, Post.AttachedFile, p);
-                        p.Attachments.Add(attachment);
+                        p.Attachments.Add(attachment.Result);
                     }
                     
                     dbc.Posts.Add(p);

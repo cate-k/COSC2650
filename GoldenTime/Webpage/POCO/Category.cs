@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using Microsoft.EntityFrameworkCore;
+using Webpage.Shared;
 
 namespace Webpage.POCO
 {
@@ -30,7 +32,7 @@ namespace Webpage.POCO
             this.ParentIdx = ParentIdx;
         }
 
-        public static POCO.Category ToPOCO(EFModel.Category category)
+        public static POCO.Category ToPOCO(EFModel.Category category, IDbContextFactory<EFModel.cosc2650Context> contextFactory)
         {
             return new Category()
             {
@@ -38,7 +40,8 @@ namespace Webpage.POCO
                 CategoryType = category.CategoryType,
                 Description = category.Description,
                 Name = category.Name,
-                ParentIdx = category.ParentIdx
+                ParentIdx = category.ParentIdx, 
+                Children = GetChildren(Helper.BuildCategories(contextFactory).ToList(), category.Idx)
             };
         }
 
