@@ -20,7 +20,9 @@ namespace Webpage.Shared
 
         private static List<POCO.Category> CACHED_CATEGORY_FLAT_LIST = null; //Make sure we need to init static property.
         private static List<POCO.Category> CACHED_CATEGORY_LIST = null; //Make sure we need to init static property.
-
+        public static List<POCO.Category> Cached_Categories_Flat => CACHED_CATEGORY_FLAT_LIST;
+        public static List<POCO.Category> Cached_Categories => CACHED_CATEGORY_LIST;
+        
         // Private, build flat categories
         public static List<POCO.Category> GetCategoriesFlat(IDbContextFactory<cosc2650Context> contextFactory)
         {
@@ -152,7 +154,7 @@ namespace Webpage.Shared
                 dbc.Category.Where(u => categoryIndexes.Contains(u.Idx))
                     .Load();
                 
-                p.ToList().ForEach(i => result.Add(POCO.Post.ToPOCO(i, contextFactory)));
+                p.ToList().ForEach(i => result.Add(POCO.Post.ToPOCO(i)));
 
                 return result;
             }

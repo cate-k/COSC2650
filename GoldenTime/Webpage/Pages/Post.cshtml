@@ -1,4 +1,5 @@
 ﻿@page
+@using Webpage.Shared
 @model Webpage.Pages.PostModel
 @{
     ViewData["Title"] = "Create a Post";
@@ -35,7 +36,7 @@
 </head>
 
 <div class="post-container">
-    <form id="NewPostForm" method="post" asp-action="SubmitPost" asp-controller="Post" enctype="multipart/form-data">
+    <form id="NewPostForm" method="post" enctype="multipart/form-data">
         <h2>@ViewData["Title"]</h2>
 
         <h5 class="field-labels">Title</h5>
@@ -45,7 +46,7 @@
         <textarea class="fields-textarea" asp-for="Post.Content" placeholder="Enter description here..."></textarea>
 
         <h5 class="field-labels">Categories</h5>
-        @foreach (var category in Model.AvailableCategories)
+        @foreach (var category in Helper.Cached_Categories)
         {
             @if (category.Children.Any())
             {

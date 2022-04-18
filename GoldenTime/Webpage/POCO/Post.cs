@@ -38,7 +38,7 @@ namespace Webpage.POCO
             Categories = new List<Category>();
         }
 
-        public static Post ToPOCO(EFModel.Posts post, IDbContextFactory<cosc2650Context> dbf) {
+        public static Post ToPOCO(EFModel.Posts post) {
             var p = new Post()
             {
                 Idx = post.Idx,
@@ -60,7 +60,7 @@ namespace Webpage.POCO
             };
 
             var postCategories = post.PostCategories.Select(i => i.CategoryIdx);
-            p.Categories.AddRange(Helper.GetCategoriesFlat(dbf).Where(c => postCategories.Contains(c.Idx)));
+            p.Categories.AddRange(Helper.Cached_Categories_Flat.Where(c => postCategories.Contains(c.Idx)));
             post.Attachments.ToList()
                 .ForEach(a => p.Attachments.Add(Attachment.ToPOCO(a)));
             
