@@ -15,17 +15,17 @@
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
         <label asp-for="Credential.UserName"></label>
-        <input type="text" asp-for="Credential.UserName" class="form-control login-field" />
+        <input type="text" asp-for="Credential.UserName" class="form-control login-field" placeholder="Enter username here..." />
         <span class="text-danger" asp-validation-for="Credential.UserName"></span>
         <br />
 
         <label asp-for="Credential.Password"></label>
-        <input type="password" asp-for="Credential.Password" class="form-control login-field" />
+        <input type="password" asp-for="Credential.Password" class="form-control login-field" placeholder="Enter password here..." />
         <span class="text-danger" asp-validation-for="Credential.Password"></span>
 
         <div class="form-group row">
             <div class=" = " col-1">
-                <button type="submit" class="animated-button">
+                <button type="submit" class="animated-btn">
                     <span>Login</span>
                 </button>
             </div>

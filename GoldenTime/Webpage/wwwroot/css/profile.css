@@ -1,1 +1,21 @@
-﻿
+﻿h2,
+h3 {
+    font-family: "Open Sans Bold";
+    margin-top: 25px;
+}
+
+label {
+    font-family: "Open Sans Bold";
+    display: block;
+}
+
+input {
+    height: 40px;
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+#profile-form {
+    margin-left: 28%;
+    width: 100%;
+}

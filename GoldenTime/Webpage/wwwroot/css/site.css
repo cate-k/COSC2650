@@ -69,7 +69,7 @@ a:hover {
   border-color: var(--colour-tulip-tree);
 }
 
-.animated-button {
+.animated-btn {
     background-color: var(--colour-tulip-tree);
     color: var(--colour-white);
     border: 0;
@@ -82,13 +82,13 @@ a:hover {
     transition: all 0.5s;
 }
 
-.animated-button span {
+.animated-btn span {
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-.animated-button span:after {
+.animated-btn span:after {
     content: "\00bb";
     position: absolute;
     opacity: 0;
@@ -97,12 +97,12 @@ a:hover {
     transition: 0.5s;
 }
 
-.animated-button:hover span {
+.animated-btn:hover span {
     color: var(--colour-white);
     padding-right: 25px;
 }
 
-.animated-button:hover span:after {
+.animated-btn:hover span:after {
     opacity: 1;
     right: 0;
 }
@@ -123,7 +123,7 @@ a:hover {
 }
 
 .login-status {
-    width: 250px;
+    width: 350px;
 }
 
 .login-status span {

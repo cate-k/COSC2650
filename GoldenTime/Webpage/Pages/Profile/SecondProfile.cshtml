@@ -8,49 +8,41 @@
     <link rel="stylesheet" href="~/css/profile.css" />
 </head>
 
+<div class="profile-container">
+    <form id="profile-form" method="post">
+        <h2>Your Profile</h2>
 
-<h5>Welcome to the profile page - please fill in all the information</h5>
-<br />
-<br />
-<br />
+        <h3>Personal Details</h3>
+        <label>Full Name</label>
+        <input type="text" name="fullName" placeholder="Enter full name here..." />
 
+        <label>Age</label>
+        <input type="number" name="age" placeholder="0" />
 
+        <label>Mobile</label>
+        <input type="text" name="mobile" placeholder="0000 000 000" />
 
+        <h3>Location</h3>
+        <label>Area Code</label>
+        <input type="text" name="location" placeholder="0000" />
 
-<form method="post">
+        <label>Country</label>
+        <input type="text" name="country" placeholder="Enter country here..." />
 
-    <h4>Personal details</h4>
-    <br />
-    <h5>Full Name:</h5>
-    <input type="text" name="fullName" placeholder="Enter full name here...">
-    <h5>Age:</h5>
-    <input type="number" name="age" />
-    <h5>Mobile</h5>
-    <input type="text" name="mobile" />
-    <br />
-    <br />
-    <br />
-    <br />
-    <h4>Location:</h4>
-    <br />
+        <label>Location Caption</label>
+        <input type="text" name="locationCaption" placeholder="Enter location caption here..." />
 
-    <h5>Area Code:</h5>
-    <input type="text" name="location" />
-    <h5>Country:</h5>
-    <input type="text" name="country" />
-    <h5>Location Caption:</h5>
-    <input type="text" name="locationCaption" />
-    <h5>Location Description:</h5>
-    <input type="text" name="locationDescription" />
-    <h5>Location State:</h5>
-    <input type="text" name="locationState" />
+        <label>Location Description</label>
+        <input type="text" name="locationDescription" placeholder="Enter location description here..." />
 
+        <label>Location State</label>
+        <input type="text" name="locationState" placeholder="Enter location state here..." />
 
-
-    <div>
-        <button type="submit">
-            <span>Create account</span>
-        </button>
-    </div>
-</form>
-
+        <div>
+            <button type="submit" class="animated-btn">
+                <span>Create account</span>
+            </button>
+        </div>
+        <br />
+    </form>
+</div>
