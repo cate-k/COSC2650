@@ -13,6 +13,16 @@
     @foreach (var post in Model.LastPosts)
     {
         <div class="post-container">
+            @if (post.Attachments.Any())
+            {
+                <img class="post-img" src="data:image/png;base64,@post.Attachments[0].WebContent" alt="@post.Filename" />
+
+                @if (post.Categories.Any() == false)
+                {
+                    <br />
+                }
+            }
+            
             <h3>@post.Subject</h3>
             <p>@post.Content</p>
 
@@ -33,22 +43,16 @@
                 • @post.CreatedOn
             </span>
         
-            @if (post.Attachments.Any())
-            {
-                <img src="data:image/png;base64,@post.Attachments[0].WebContent" width="80" height="80" alt="@post.Filename" />
-            }
-        
             @if (post.Categories.Any())
             {
-                foreach (var postCategory in post.Categories)
-                {
-                    <button>@postCategory.Name</button>
-                }
+                <div class="categories-container">
+                    @foreach (var postCategory in post.Categories)
+                    {
+                        <button class="category">@postCategory.Name</button>
+                    }
+                </div>
             }
-            
         </div>
-        
-        
     }
 </div>
 <br />

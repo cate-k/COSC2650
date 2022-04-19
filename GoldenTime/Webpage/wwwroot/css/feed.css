@@ -12,8 +12,31 @@
     padding: 15px;
 }
 
+.post-img {
+    float: right;
+    background-size: cover;
+    border-radius: 5px;
+    width: 40%;
+}
+
 .ending-date {
     display: inline-block;
     margin-left: 18.5px;
     margin-bottom: 10px;
+}
+
+.categories-container {
+    display: block;
+}
+
+.category {
+    background-color: var(--colour-mercury);
+    border: 0;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
 }
