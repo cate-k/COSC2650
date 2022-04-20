@@ -77,6 +77,27 @@ namespace Webpage.Shared
                 return dbc.Users.Where(u => u.Email == claim_email).FirstOrDefault().Idx;
         }
 
+        // Fetch User password by index
+        public static string GetUserPassword(IDbContextFactory<cosc2650Context> contextFactory, int user_index)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+                return dbc.Users.Where(u => u.Idx == user_index).FirstOrDefault().password;
+            }
+
+        // Fetch User Name by index
+        public static string GetUserEmail(IDbContextFactory<cosc2650Context> contextFactory, int user_index)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+                return dbc.Users.Where(u => u.Idx == user_index).FirstOrDefault().Email;
+        }
+        // Fetch User isAdmin by index
+        public static int GetIsAdmin(IDbContextFactory<cosc2650Context> contextFactory, int user_index)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+                return dbc.Users.Where(u => u.Idx == user_index).FirstOrDefault().IsAdmin;
+        }
+
+
         // Fetch Location idx
         public static int GetLocationIndex(IDbContextFactory<cosc2650Context> contextFactory, int postCode)
         {
