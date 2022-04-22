@@ -8,15 +8,10 @@ namespace Webpage.EFModel
 {
     public partial class cosc2650Context : DbContext
     {
-        //public cosc2650Context()
-        //{
-        //}
-
         public cosc2650Context(DbContextOptions<cosc2650Context> options)
             : base(options)
         {
         }
-
         public virtual DbSet<Attachments> Attachments { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Location> Location { get; set; }
@@ -27,6 +22,7 @@ namespace Webpage.EFModel
         public virtual DbSet<Preference> Preference { get; set; }
         public virtual DbSet<Preferences> Preferences { get; set; }
         public virtual DbSet<Response> Response { get; set; }
+        public virtual DbSet<Stats> Stats { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -457,6 +453,28 @@ namespace Webpage.EFModel
                     .HasConstraintName("response_category_idx_fk");
             });
 
+            modelBuilder.Entity<Stats>(entity =>
+            {
+                entity.HasKey(e => e.Idx)
+                    .HasName("stats_pk");
+
+                entity.ToTable("stats");
+
+                entity.HasIndex(e => e.Idx, "stats_idx_uindex")
+                    .IsUnique();
+
+                entity.Property(e => e.Idx).HasColumnName("idx");
+
+                entity.Property(e => e.CreatedOn).HasDefaultValueSql("(sysdatetime())");
+
+                entity.Property(e => e.Event)
+                    .IsRequired()
+                    .HasMaxLength(64)
+                    .HasColumnName("event");
+
+                entity.Property(e => e.Meta).HasColumnName("meta");
+            });
+
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.Idx)
@@ -490,6 +508,11 @@ namespace Webpage.EFModel
                 entity.Property(e => e.Mobile)
                     .HasMaxLength(16)
                     .HasColumnName("mobile");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
 
                 entity.HasOne(d => d.LocationIdxNavigation)
                     .WithMany(p => p.Users)

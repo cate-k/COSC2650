@@ -20,16 +20,31 @@ namespace Webpage.Pages.MessagePages
     {
         private readonly IDbContextFactory<cosc2650Context> _contextFactory;
         private readonly ILogger<IndexModel> _logger;
+        public readonly List<string> _receivers;
 
+        public string prefilledTitle = string.Empty;
+        public string prefilledOwner = string.Empty;
+        
         public AddMessagesModel(ILogger<IndexModel> logger, IDbContextFactory<cosc2650Context> contextFactory)
         {
             _logger = logger;
             _contextFactory = contextFactory;
+            _receivers = new List<string>();
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string messageTitle, string owner)
         {
+            if (string.IsNullOrEmpty(User.GetUserRole()))
+                return RedirectToPage("/Account/Login");
 
+            _receivers.AddRange(Helper.GetUsers(_contextFactory, null).Select(s => s.Email).ToList());
+
+            if (string.IsNullOrEmpty(owner)) 
+                return Page();
+            
+            prefilledOwner = owner;
+            prefilledTitle = messageTitle.Replace('%', ' ');
+            
             return Page();
         }
 
@@ -49,11 +64,10 @@ namespace Webpage.Pages.MessagePages
                 // This is where we inspect the http post, bound properties on the model and save...
                 using (var dbc = _contextFactory.CreateDbContext())
                 {
-                   
                     var m = new EFModel.Messages()
                     {
-                        SenderIdx = Helper.GetUserIndex(_contextFactory, "s3739099@student.rmit.edu.au"),
-                        ReceiverIdx = Helper.GetUserIndex(_contextFactory, "s3820255@student.rmit.edu.au"), 
+                        SenderIdx = Helper.GetUserIndex(_contextFactory, User.GetUserEmail()),
+                        ReceiverIdx = Helper.GetUserIndex(_contextFactory, Request.Form.First(x => x.Key.Equals("recip")).Value), 
                         CreatedOn = DateTime.Now,
                         //ModifiedOn = Message.ModifiedOn, TODO: Need to add this for edit message functionality
                         Subject = Message.Subject,
@@ -63,6 +77,9 @@ namespace Webpage.Pages.MessagePages
                     };
 
                     dbc.Messages.Add(m);
+                    // Stats for successfuly logged in users
+                    dbc.Stats.Add(new Stats() {Event = "Message", Meta = "Created"});
+
                     dbc.SaveChanges();
                 }
             }
@@ -72,7 +89,7 @@ namespace Webpage.Pages.MessagePages
                 _logger.Log(LogLevel.Error, ex, string.Concat("PostModel:OnPost: ", ex.Message), new object[0]);
             }
 
-            return Redirect("ViewMessages");
+            return RedirectToPage("ViewMessages");
         }       
 
     }

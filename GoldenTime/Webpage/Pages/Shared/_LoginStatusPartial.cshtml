@@ -1,7 +1,8 @@
-﻿@if (User.Identity.IsAuthenticated)
+﻿@using Webpage.Shared
+@if (!string.IsNullOrEmpty(User.GetUserEmail()))
 {
     <form method="post" asp-page="/Account/Logout" class="login-status">
-        <span>Welcome, @User.Identity.Name !</span>
+        <span>Welcome, @User.GetUserEmail()!</span>
         <button type="submit" class="regular-btn">Logout</button>
     </form>
 }

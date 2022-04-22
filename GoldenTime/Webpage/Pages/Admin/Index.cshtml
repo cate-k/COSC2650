@@ -3,7 +3,72 @@
 @{
 }
 
+<H2>Statistics</H2>
+<H3>Created Messages</H3>
+    <table >
+            <tr><th width="40%">Created</th><th width="20%">Number</th></tr>
+            @for (int i=0;i<3;i++)
+            {
+                <tr>
+                    <td>@if (i == 0)
+                        {
+                            @:Today
+                        } else if (i == 1)
+                        {
+                            @:Last 7 days
+                        } else 
+                        {
+                            @:Last 31 days
+                        }   
+                        </td>
+                        <td>@Model.stats[0,i].ToString()</td>
+                </tr>
+            }
+        </table>
+<H3>Created Posts</H3>
+    <table >
+            <tr><th width="40%">Created</th><th width="20%">Number</th></tr>
+            @for (int i=0;i<3;i++)
+            {
+                <tr>
+                    <td>@if (i == 0)
+                        {
+                            @:Today
+                        } else if (i == 1)
+                        {
+                            @:Last 7 days
+                        } else 
+                        {
+                            @:Last 31 days
+                        }   
+                        </td>
+                        <td>@Model.stats[1,i].ToString()</td>
+                </tr>
+            }
+        </table>
+<H3>Users logged in</H3>
+    <table >
+            <tr><th width="40%">Logged in</th><th width="20%">Number</th></tr>
+            @for (int i=0;i<3;i++)
+            {
+                <tr>
+                    <td>@if (i == 0)
+                        {
+                            @:Today
+                        } else if (i == 1)
+                        {
+                            @:Last 7 days
+                        } else 
+                        {
+                            @:Last 31 days
+                        }   
+                        </td>
+                        <td>@Model.stats[2,i].ToString()</td>
+                </tr>
+            }
+        </table>
 
+<H2>Operations</H2>
 <div class="menu-links navbar-collapse collapse d-sm-inline-flex justify-content-between">
     <ul class="navbar-nav flex-grow-1">
         <li class="nav-item">

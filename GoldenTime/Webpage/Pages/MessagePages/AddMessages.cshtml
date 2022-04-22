@@ -32,9 +32,29 @@
                 <input asp-for="Message.ModifiedOn" class="form-control" />
                 <span asp-validation-for="Message.ModifiedOn" class="text-danger"></span>
             </div>*@
+            @if (Model._receivers.Count > 0)
+            {
+                <label for="rec">Recipient:</label>
+
+                <select name="recip" id="rec">
+                    @foreach (var r in Model._receivers)
+                    {
+                        <option value="@r"  selected=@(!string.IsNullOrEmpty(Model.prefilledOwner) && 
+                                              Model.prefilledOwner == r)>@r</option>
+                    }
+                </select>
+            }
+            
             <div class="form-group">
                 <label asp-for="Message.Subject" class="control-label"></label>
-                <input asp-for="Message.Subject" class="form-control" />
+                    @if (!string.IsNullOrEmpty(Model.prefilledTitle))
+                    {
+                        <input asp-for="Message.Subject" class="form-control" value="@Model.prefilledTitle" />
+                    }
+                    else
+                    {   
+                        <input asp-for="Message.Subject" class="form-control" />
+                    }
                 <span asp-validation-for="Message.Subject" class="text-danger"></span>
             </div>
             <div class="form-group">

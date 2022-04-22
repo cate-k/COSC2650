@@ -29,6 +29,14 @@ namespace Webpage.Pages
             // All work done on request
         }
 
+        public IActionResult OnGet()
+        {
+            if (string.IsNullOrEmpty(User.GetUserRole()))
+                return RedirectToPage("/Account/Login");
+
+            return Page();
+        }
+
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -43,7 +51,7 @@ namespace Webpage.Pages
                     {
                         Content = Post.Content,
                         Subject = Post.Title,
-                        UserIdx = Helper.GetUserIndex(_contextFactory, "s3739099@student.rmit.edu.au"), // <-- TODO: This is where we need claims from Sam's work.                 
+                        UserIdx = Helper.GetUserIndex(_contextFactory, User.GetUserEmail()),                 
                         StartingOn = Post.StartsOn,
                         EndingOn = Post.EndsOn,
                         LocationIdx = Helper.GetLocationIndex(_contextFactory, Post.PostCode)
@@ -62,6 +70,8 @@ namespace Webpage.Pages
                     }
                     
                     dbc.Posts.Add(p);
+                    dbc.Stats.Add(new Stats() {Event = "Post", Meta = "Created"});
+
                     dbc.SaveChanges();
                 }
             }

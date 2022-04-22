@@ -25,10 +25,11 @@ namespace Webpage.Pages.Account
         int userAdmin;
         string claimTypeName;
 
-        public LoginModel(IDbContextFactory<cosc2650Context> contextFactory)
+        public LoginModel(IDbContextFactory<cosc2650Context> contextFactory, ILogger<IndexModel> logger)
         {
             _contextFactory = contextFactory;
             _context = _contextFactory.CreateDbContext();
+            _logger = logger;
         }
 
 
@@ -54,7 +55,6 @@ namespace Webpage.Pages.Account
                 userEmail = Helper.GetUserEmail(_contextFactory, userIdx);
                 userPassword = Helper.GetUserPassword(_contextFactory, userIdx);
                 userAdmin = Helper.GetIsAdmin(_contextFactory, userIdx);
-
             }
             catch (Exception ex)
             {
@@ -75,15 +75,32 @@ namespace Webpage.Pages.Account
                 //Create security context 
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, claimTypeName),
-                    new Claim(ClaimTypes.Email, userEmail)
+                    new Claim(ClaimTypes.Email, userEmail),
+                    new (ClaimTypes.Role, claimTypeName)
                  };
                 var identity = new ClaimsIdentity(claims, "GoldenCookieAuth");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync("GoldenCookieAuth", claimsPrincipal);
 
+                // Stats for successfuly logged in users
+                await using (var dbc = _contextFactory.CreateDbContext())
+                {
+                    dbc.Stats.Add(new Stats() {Event = "Login", Meta = "Success"});
+                    await dbc.SaveChangesAsync();
+                }
+
                 return RedirectToPage("/Index");
             }
+            
+            // Stats for failed user logins
+            await using (var dbc = _contextFactory.CreateDbContext())
+            {
+                dbc.Stats.Add(new Stats() {Event = "Login", Meta = "Failed"});
+                await dbc.SaveChangesAsync();
+            }
+
+
             return Page();
         }
             

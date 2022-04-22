@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.EntityFrameworkCore.Metadata.Builders
+@using System.Web
 @model FeedModel
 @{
     ViewData["Title"] = "Feed";
@@ -52,6 +54,9 @@
                     }
                 </div>
             }
+            <a href="/MessagePages/AddMessages/?messageTitle=@post.Subject.Replace(' ','%') &&owner=@post.Email">Send Message</a>
+            
+            
         </div>
     }
 </div>

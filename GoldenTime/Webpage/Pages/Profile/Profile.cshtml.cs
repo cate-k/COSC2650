@@ -14,8 +14,6 @@ namespace Webpage.Pages.Profile
     {
         //context factory creation
         private readonly IDbContextFactory<cosc2650Context> _contextFactory;
-        public string Identity;
-        string loggedIn = "no";
 
         //lists to store the pulls from DB
         public List<POCO.User> Users;
@@ -31,23 +29,16 @@ namespace Webpage.Pages.Profile
         //on load sending to view
         public IActionResult OnGet()
         {
-            
-           
-            if (loggedIn == "yes")
+            var userId = User.GetUserEmail();
+            if (!string.IsNullOrEmpty(userId))
             {
-                Identity = User.Identity.Name;
-                Users = Helper.GetUsers(_contextFactory);
-                Messages = Helper.GetMessages(_contextFactory);
+                Users = Helper.GetUsers(_contextFactory, userId );
+                Messages = Helper.GetMessages(_contextFactory, userId);
                 return Page();
             }
-            else
-            {
-                return Redirect("/Profile/SecondProfile");
-            }
-            
+           
+            return RedirectToPage("/Account/Login");
         }
-
-
 
         public void OnPost()
         { }

@@ -22,11 +22,14 @@ namespace Webpage.Pages.MessagePages
             _contextFactory = contextFactory;
         }
               
-
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Identity = User.Identity.Name;
-            Messages = Helper.GetMessages(_contextFactory);
+            if (string.IsNullOrEmpty(User.GetUserRole()))
+                return RedirectToPage("/Account/Login");
+            
+            Messages = Helper.GetMessages(_contextFactory, User.GetUserEmail());
+
+            return Page();
         }
     }
 }

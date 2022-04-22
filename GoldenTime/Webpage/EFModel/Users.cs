@@ -23,7 +23,7 @@ namespace Webpage.EFModel
         public int? LocationIdx { get; set; }
         public string Mobile { get; set; }
         public int IsAdmin { get; set; }
-        public string password { get; set; }
+        public string Password { get; set; }
 
         public virtual Location LocationIdxNavigation { get; set; }
         public virtual ICollection<Messages> MessagesReceiverIdxNavigation { get; set; }
@@ -31,6 +31,5 @@ namespace Webpage.EFModel
         public virtual ICollection<PostReqResponses> PostReqResponses { get; set; }
         public virtual ICollection<Posts> Posts { get; set; }
         public virtual ICollection<Preferences> Preferences { get; set; }
-
     }
 }
