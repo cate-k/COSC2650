@@ -204,7 +204,7 @@ namespace Webpage.Shared
         }
 
         // Get last x posts
-        public static List<POCO.Post> GetPosts(IDbContextFactory<cosc2650Context> contextFactory, int topItems = 10)
+        public static List<POCO.Post> GetPosts(IDbContextFactory<cosc2650Context> contextFactory, Rating rating, int topItems = 10)
         {
             // Refactored; Multiple Includes() cause cartesian product explosion and exponentially degraded performance
             // with each additional item load. 
@@ -215,8 +215,7 @@ namespace Webpage.Shared
 
                 var result = new List<POCO.Post>();
                 var p = dbc.Posts
-                    .OrderByDescending(p => p.CreatedOn)
-                    .Take(topItems);
+                    .OrderByDescending(p => p.CreatedOn);                   
                 var postIndexes = p.Select(f => f.Idx);
                 var userIndexes = p.Select(f => f.UserIdx).Distinct();
                 var locationIndexes = p.Select(f => f.LocationIdx).Distinct();
@@ -239,7 +238,14 @@ namespace Webpage.Shared
 
                 p.ToList().ForEach(i => result.Add(POCO.Post.ToPOCO(i)));
 
-                return result;
+                // if we have rating object, rate and order the list
+                if (rating != null)
+                {
+                    result.ForEach(p => p.CalculatedRate = rating.Calculate(p));
+                    result = result.OrderByDescending(p => p.CalculatedRate).ThenByDescending(p => p.CreatedOn).ToList();
+                }
+
+                return result.Take(topItems).ToList();
             }
         }
 

@@ -28,13 +28,14 @@ namespace Webpage.Pages
         {
             var userId = User.GetUserEmail();
             POCO.User user;
+            Rating rating = null;
 
             if (!string.IsNullOrEmpty(userId))
             {
                 user = Helper.GetUserDeep(_contextFactory, userId);
-
+                rating = new Rating(user);
             }
-            LastPosts = Helper.GetPosts(_contextFactory);
+            LastPosts = Helper.GetPosts(_contextFactory, rating);
         }
     }
 }
