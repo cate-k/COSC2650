@@ -11,7 +11,6 @@ namespace Webpage.POCO
         public int Idx { get; set; }
         public int SenderIdx { get; set; }
         public int ReceiverIdx { get; set; }
-
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string Subject { get; set; }

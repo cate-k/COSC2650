@@ -1,4 +1,5 @@
 ﻿@page
+@using MudBlazor
 @model Webpage.Pages.MessagePages.ViewMessagesModel
 
 @{
@@ -8,7 +9,7 @@
 <h1>View Messages</h1>
 
 <p>
-    
+
     <a asp-page="/MessagePages/AddMessages">New Message</a>
 </p>
 <table class="table">
@@ -20,15 +21,15 @@
             @* <th> *@
             @*     @Html.DisplayNameFor(model => model.Messages[0].Receiver) *@
             @* </th> *@
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].CreatedOn)
-            </th>
+            @* <th> *@
+            @*     @Html.DisplayNameFor(model => model.Messages[0].CreatedOn) *@
+            @* </th> *@
             @* <th> *@
             @*     @Html.DisplayNameFor(model => model.Messages[0].ModifiedOn) *@
             @* </th> *@
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].Subject)
-            </th>
+            @* <th> *@
+            @*     @Html.DisplayNameFor(model => model.Messages[0].Subject) *@
+            @* </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Messages[0].Content)
             </th>
@@ -39,35 +40,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Messages) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sender.FullName)
-            </td>
-            @* <td> *@
-            @*     @Html.DisplayFor(modelItem => item.Receiver.FullName) *@
-            @* </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            @* <td> *@
-            @*     @Html.DisplayFor(modelItem => item.ModifiedOn) *@
-            @* </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            @* <td> *@
-            @*     @Html.DisplayFor(modelItem => item.ParentIdx) *@
-            @* </td> *@
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
-            </td>
-        </tr>
-}
+
+        @foreach (var item in Model.Messages)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sender.FullName)
+                </td>
+                @* <td> *@
+                @*     @Html.DisplayFor(modelItem => item.Receiver.FullName) *@
+                @* </td> *@
+                @* <td> *@
+                @*     @Html.DisplayFor(modelItem => item.createdOn) *@
+                @* </td> *@
+                @* <td> *@
+                @*     @Html.DisplayFor(modelItem => item.ModifiedOn) *@
+                @* </td> *@
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                @* <td> *@
+                @*     @Html.DisplayFor(modelItem => item.ParentIdx) *@
+                @* </td> *@
+                @*<td>
+                        <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
+                    </td>*@
+            </tr>
+        }
     </tbody>
 </table>
+<component>
+    @(await Html.RenderComponentAsync<Counter>(RenderMode.Server))
+</component>

@@ -23,6 +23,7 @@ namespace Webpage.Pages.Account
         string userPassword;
         string userEmail;
         int userAdmin;
+        string userName;
         string claimTypeName;
 
         public LoginModel(IDbContextFactory<cosc2650Context> contextFactory, ILogger<IndexModel> logger)
@@ -55,6 +56,7 @@ namespace Webpage.Pages.Account
                 userEmail = Helper.GetUserEmail(_contextFactory, userIdx);
                 userPassword = Helper.GetUserPassword(_contextFactory, userIdx);
                 userAdmin = Helper.GetIsAdmin(_contextFactory, userIdx);
+                
             }
             catch (Exception ex)
             {

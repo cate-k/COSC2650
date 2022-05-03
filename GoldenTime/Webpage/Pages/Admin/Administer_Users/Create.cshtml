@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Users.LocationIdx" class="control-label"></label>
-                <select asp-for="Users.LocationIdx" class ="form-control" asp-items="ViewBag.LocationIdx"></select>
+                <select asp-for="Users.LocationIdx" class="form-control" asp-items="ViewBag.LocationIdx"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Users.Mobile" class="control-label"></label>
@@ -41,6 +41,11 @@
                 <label asp-for="Users.IsAdmin" class="control-label"></label>
                 <input asp-for="Users.IsAdmin" class="form-control" />
                 <span asp-validation-for="Users.IsAdmin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Users.Password" class="control-label"></label>
+                <input asp-for="Users.Password" class="form-control" />
+                <span asp-validation-for="Users.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
