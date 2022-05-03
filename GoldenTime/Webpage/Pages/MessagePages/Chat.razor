@@ -129,10 +129,10 @@
 
         hubConnection.On<string, string>("ReceiveMessage", async (receiver, sender) =>
         {
-
+            messages.Clear();
             messages = GetConversationAsync(_contextFactory, receiver, sender);
             await _jsRuntime.InvokeAsync<string>("ScrollToBottom", "chatContainer");
-            InvokeAsync(StateHasChanged);
+            StateHasChanged();
         });
 
         await hubConnection.StartAsync();
