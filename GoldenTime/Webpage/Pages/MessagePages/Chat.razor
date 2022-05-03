@@ -122,7 +122,7 @@
     {
 
         ChatUsers = GetResponders(_contextFactory, "");
-
+        messages = null;
         hubConnection = new HubConnectionBuilder()
         .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
         .Build();
@@ -191,7 +191,7 @@
                     {
                         SenderIdx = GetUserIndex(_contextFactory, CurrentUserEmail),
                         ReceiverIdx = GetUserIndex(_contextFactory, ContactEmail),
-                        CreatedOn = DateTime.Now,
+                        CreatedOn = DateTime.Now.ToUniversalTime(),
                         //ModifiedOn = Message.ModifiedOn, TODO: Need to add this for edit message functionality
                         Subject = NewMessage,
                         Content = NewMessage,
