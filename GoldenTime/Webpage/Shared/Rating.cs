@@ -44,7 +44,7 @@ namespace Webpage.Shared
             {
                 var sigmoid = 1 / (1 + Math.Pow(Math.E, -1 * parentCategoryMatch.ToList().Count)); 
                 return rating *= Convert.ToDecimal(sigmoid);
-            } else
+            } 
             if (childCategoryMatch.ToList().Count > 0)
             {
                 var sigmoid = 1 / (1 + Math.Pow(Math.E, -1 * childCategoryMatch.ToList().Count));
