@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Webpage.EFModel;
 using System.Threading.Tasks;
+using Webpage.POCO;
+using System.Data;
 
 namespace Webpage.Shared
 {
@@ -26,6 +28,17 @@ namespace Webpage.Shared
         private static List<POCO.Category> CACHED_CATEGORY_LIST = null; //Make sure we need to init static property.
         public static List<POCO.Category> Cached_Categories_Flat => CACHED_CATEGORY_FLAT_LIST;
         public static List<POCO.Category> Cached_Categories => CACHED_CATEGORY_LIST;
+
+        internal static User GetUserDeep(IDbContextFactory<cosc2650Context> contextFactory, string userId)
+        {
+            using (var dbc = contextFactory.CreateDbContext()) { 
+                var user = dbc.Users
+                    .Include(g => g.Preferences)
+                    .ThenInclude(g => g.PreferenceIdxNavigation)
+                    .FirstOrDefault(x => x.Email == userId);
+                return User.ToPOCO(user);               
+            }
+        }
 
         // Private, build flat categories
         public static List<POCO.Category> GetCategoriesFlat(IDbContextFactory<cosc2650Context> contextFactory)
@@ -47,6 +60,31 @@ namespace Webpage.Shared
             }
 
             return CACHED_CATEGORY_FLAT_LIST;
+        }
+
+        internal static void ReplaceUserCategories(IDbContextFactory<cosc2650Context> contextFactory, List<POCO.Category> categories, int userId)
+        {
+            using (var dbc = contextFactory.CreateDbContext()) {
+                var removable = dbc.Preferences
+                    .Include(p => p.PreferenceIdxNavigation)
+                    .Where(p => p.UserIdx == userId && p.PreferenceIdxNavigation.Name.Equals("MatchCategory"));
+
+                dbc.Preferences.RemoveRange(removable);
+                
+                if (categories.Any())
+                {
+                    var pref = dbc.Preference.FirstOrDefault(p => p.Name.Equals("MatchCategory"));
+
+                    categories.ForEach(c => dbc.Preferences.Add(new Preferences() { 
+                        UserIdx = userId,
+                        PreferenceIdx = pref.Idx,
+                        PreferenceIdxNavigation = pref,
+                        PreferenceValue = c.Idx.ToString()                    
+                    }));
+                }
+
+                dbc.SaveChanges();
+            }
         }
 
         // Create Categories in a structured tree
@@ -152,7 +190,7 @@ namespace Webpage.Shared
         }
 
         // Returns selected categories on the post as list of POCOs
-        public static List<POCO.Category> GetPostSelectedCategories(IDbContextFactory<cosc2650Context> contextFactory,
+        public static List<POCO.Category> GetItemSelectedCategories(IDbContextFactory<cosc2650Context> contextFactory,
             IFormCollection form)
         {
             var names = form.Select(s => s.Key);

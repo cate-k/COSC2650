@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Webpage.Shared;
 
 namespace Webpage.POCO
 {
@@ -10,23 +13,34 @@ namespace Webpage.POCO
         public int? Age { get; set; }
         public int? LocationIdx { get; set; }
         public string Mobile { get; set; }
+        public List<Category> Categories { get; set; }
+
 
         public User()
         {
-
+            Categories = new List<Category>();
         }
 
-        public static User ToPOCO(EFModel.Users User)
+        public static User ToPOCO(EFModel.Users user)
         {
-            return new User()
+            var u = new User()
             {
-                 Idx = User.Idx,
-                 Email = User.Email,
-                 FullName = User.FullName,
-                 Age = User.Age,
-                 LocationIdx = User.LocationIdx,
-                 Mobile = User.Mobile
+                 Idx = user.Idx,
+                 Email = user.Email,
+                 FullName = user.FullName,
+                 Age = user.Age,
+                 LocationIdx = user.LocationIdx,
+                 Mobile = user.Mobile
             };
+
+            try
+            {
+                var userCategories = user.Preferences.Where(p => p.PreferenceIdxNavigation.Name.Equals("MatchCategory")).Select(i => int.Parse(i.PreferenceValue)).ToList();
+                u.Categories.AddRange(Helper.Cached_Categories_Flat.Where(c => userCategories.Contains(c.Idx)));
+            }
+            catch { }
+           
+            return u;
         }       
     }
 }

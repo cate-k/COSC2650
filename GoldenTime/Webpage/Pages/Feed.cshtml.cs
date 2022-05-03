@@ -26,6 +26,14 @@ namespace Webpage.Pages
         }
         public void OnGet()
         {
+            var userId = User.GetUserEmail();
+            POCO.User user;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                user = Helper.GetUserDeep(_contextFactory, userId);
+
+            }
             LastPosts = Helper.GetPosts(_contextFactory);
         }
     }
