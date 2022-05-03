@@ -21,14 +21,18 @@ namespace Webpage.Pages.MessagePages
         {
             _contextFactory = contextFactory;
         }
-              
+        
         public IActionResult OnGet()
         {
             if (string.IsNullOrEmpty(User.GetUserRole()))
                 return RedirectToPage("/Account/Login");
-            
+            String SenderName;
             Messages = Helper.GetMessages(_contextFactory, User.GetUserEmail());
-
+            foreach (POCO.Message Message in Messages)
+            {
+                SenderName = Message.Sender.FullName;
+                    
+            }
             return Page();
         }
     }

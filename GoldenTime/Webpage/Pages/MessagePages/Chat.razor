@@ -1,0 +1,218 @@
+﻿@page "/Chat"
+@page "/chat/{ContactId}"
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.SignalR.Client
+@using Microsoft.EntityFrameworkCore;
+@using Webpage.EFModel;
+@using System.Security.Claims;
+@using Microsoft.Extensions.Logging;
+@using MudBlazor
+@using static Webpage.Shared.Helper;
+
+@implements IAsyncDisposable
+
+@inject IDbContextFactory<cosc2650Context> _contextFactory;
+@inject ILogger<IndexModel> _logger;
+@inject NavigationManager NavigationManager;
+@inject IJSRuntime _jsRuntime;
+@inject ISnackbar _snackBar;
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello @GetUserName(_contextFactory, context.User.GetUserEmail())</h1>
+
+
+        <div class="d-flex flex-grow-1 flex-row">
+            <MudPaper Elevation="25" Class="py-4 flex-grow-1">
+                <MudToolBar Dense="true">
+                    @if (string.IsNullOrEmpty(ContactId))
+                    {
+                        <MudIcon Icon="@Icons.Material.Outlined.Person" Style="margin-right:10px"></MudIcon>
+                        <MudText Typo="Typo.h6">chat</MudText>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Outlined.ChatBubble" Style="margin-right:10px"></MudIcon>
+                        <MudText Typo="Typo.h6">@ContactEmail</MudText>
+                    }
+                </MudToolBar>
+
+
+
+                <div class="d-flex flex-column px-4" style="max-height:65vh;min-height:65vh; overflow:scroll;" id="chatContainer">
+
+                    @foreach (var message in messages)
+                    {
+                        <div class="d-flex flex-row my-4">
+                            <div class="mr-4">
+                                <MudAvatar Color="Color.Secondary" Style="height:50px; width:50px;">@message.Sender.FullName.ToUpper().FirstOrDefault()</MudAvatar>
+                            </div>
+                            <div>
+                                <MudText Typo="Typo.body1">@message.Sender.FullName</MudText>
+                                <MudText Typo="Typo.caption" Style="font-size: xx-small!important;">@message.CreatedOn.ToString("dd MMM, yyyy hh:mm tt")</MudText>
+                                <MudText Typo="Typo.body2" Style=" padding: 15px;background-color: var(--mud-palette-background-grey);border-radius: 5px;margin-top:5px">@message.Content</MudText>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+
+                <MudPaper Elevation="25" Class="d-flex flex-row px-2 mx-4" Style="">
+                    <MudTextField T="string" Placeholder="Enter your message..." DisableUnderLine="true" Class="mt-n2 mx-4"
+                                  disabled="@(!IsConnected)" @bind-Value="NewMessage" For="@(()=> NewMessage)" />
+                    <MudButton OnClick="SubmitAsync" StartIcon="@Icons.Material.Outlined.Send"
+                               Color="Color.Secondary" ButtonType="ButtonType.Button">Send</MudButton>
+                </MudPaper>
+            </MudPaper>
+
+            <MudPaper Elevation="25" Class="pa-3 ml-6" MinWidth="350px">
+                <MudToolBar Dense="true">
+                    <MudText Typo="Typo.h6" Inline="true" Class="mr-2">#</MudText>
+                    <MudText Typo="Typo.h6">contacts</MudText>
+                </MudToolBar>
+                <div class="d-flex flex-column px-4" style="max-height:70vh;min-height:70vh; overflow:scroll;">
+                    <MudList Clickable="true">
+
+                        @foreach (var user in ChatUsers)
+                        {
+                            <MudListItem Class="pa-0 px-2" OnClick="@(() => LoadUserChat(context.User.GetUserEmail(), user.Email))">
+                                <div class="d-flex flex-row mt-n1 mb-n1">
+                                    <div class="mr-4">
+                                        <MudBadge Class="my-2">
+                                            @if (user.Email == ContactId)
+                                            {
+                                                <MudAvatar Color="Color.Secondary" Style="height:50px; width:50px;">
+                                                    @user.FullName.ToUpper().FirstOrDefault()
+                                                </MudAvatar>
+                                            }
+                                            else
+                                            {
+                                                <MudAvatar Color="Color.Dark" Style="height:50px; width:50px;">@user.FullName.ToUpper().FirstOrDefault()</MudAvatar>
+                                            }
+                                        </MudBadge>
+                                    </div>
+                                    <div>
+                                        <MudText Typo="Typo.body2" Class="mt-3 mb-n2">@user.FullName</MudText>
+                                        <MudText Typo="Typo.caption" Style="font-size: xx-small!important;">@user.Email</MudText>
+                                    </div>
+                                </div>
+                            </MudListItem>
+                        }
+                    </MudList>
+                </div>
+            </MudPaper>
+        </div>
+    </Authorized>
+</AuthorizeView>
+@code {
+
+    private HubConnection hubConnection;
+
+
+    private static List<POCO.Message> messages = new List<POCO.Message>();
+    private string userInput;
+    private string messageInput;
+    [Parameter] public string CurrentMessage { get; set; }
+    [Parameter] public string CurrentUserId { get; set; }
+    [Parameter] public string CurrentUserEmail { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        ChatUsers = GetResponders(_contextFactory, "");
+        messages.Clear();
+        hubConnection = new HubConnectionBuilder()
+        .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
+        .Build();
+
+        hubConnection.On<string, string>("ReceiveMessage", async (receiver, sender) =>
+        {
+            messages.Clear();
+            messages = GetConversationAsync(_contextFactory, receiver, sender);
+            await _jsRuntime.InvokeAsync<string>("ScrollToBottom", "chatContainer");
+            StateHasChanged();
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+
+
+    async Task Send(String receiver, String sender) => //, POCO.Message pMessage removed
+        await hubConnection.SendAsync("SendMessage", receiver, sender);//, pMessage);
+
+
+
+    public bool IsConnected =>
+        hubConnection.State == HubConnectionState.Connected;
+
+
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+
+
+    public List<POCO.User> ChatUsers = new List<POCO.User>();
+    [Parameter] public string ContactEmail { get; set; }
+    [Parameter] public string ContactId { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _jsRuntime.InvokeAsync<string>("ScrollToBottom", "chatContainer");
+    }
+
+    async Task LoadUserChat(string receiverEmail, string senderEmail)
+    {
+        CurrentUserEmail = senderEmail;
+        ContactEmail = receiverEmail;
+        messages = GetConversationAsync(_contextFactory, receiverEmail, senderEmail);
+        //_jsRuntime.InvokeAsync<string>("ScrollToBottom", "chatContainer");
+    }
+    POCO.Message pMessage = new POCO.Message();
+    [Parameter] public string NewMessage { get; set; }
+    private async Task SubmitAsync()
+    {
+        if (!string.IsNullOrEmpty(NewMessage) && !string.IsNullOrEmpty(ContactEmail))
+        {
+            try
+            {
+                // This is where we inspect the http post, bound properties on the model and save...
+                using (var dbc = _contextFactory.CreateDbContext())
+                {
+                    var m = new EFModel.Messages()
+                    {
+                        SenderIdx = GetUserIndex(_contextFactory, CurrentUserEmail),
+                        ReceiverIdx = GetUserIndex(_contextFactory, ContactEmail),
+                        CreatedOn = DateTime.Now.ToUniversalTime(),
+                        //ModifiedOn = Message.ModifiedOn, TODO: Need to add this for edit message functionality
+                        Subject = NewMessage,
+                        Content = NewMessage,
+                        //ParentIdx = Message.ParentIdx, TODO: Need to add this for message collection
+                        //so that when a message has a parent message they stack into a coinversation
+                    };
+
+                    dbc.Messages.Add(m);
+                    // Stats for successfuly logged in users
+                    dbc.Stats.Add(new Stats() { Event = "Message", Meta = "Created" });
+
+                    dbc.SaveChanges();
+                    //pMessage = POCO.Message.ToPOCO(m);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex, string.Concat("PostModel:OnPost: ", ex.Message), new object[0]);
+            }
+            await Send(ContactEmail, CurrentUserEmail);//, pMessage);receiver, sender
+        }
+    }
+}

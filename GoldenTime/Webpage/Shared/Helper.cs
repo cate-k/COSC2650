@@ -134,6 +134,12 @@ namespace Webpage.Shared
                 return dbc.Users.Where(u => u.Idx == user_index).FirstOrDefault().Email;
         }
 
+        public static string GetUserName(IDbContextFactory<cosc2650Context> contextFactory, string claim_email)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+                return dbc.Users.Where(u => u.Email == claim_email).FirstOrDefault().FullName;
+        }
+
         // Fetch User isAdmin by index
         public static int GetIsAdmin(IDbContextFactory<cosc2650Context> contextFactory, int user_index)
         {
@@ -246,9 +252,31 @@ namespace Webpage.Shared
                     .Include(u =>
                         u.SenderIdxNavigation) // These two Include statements tell EF to go one level deeper and retrieve navigational items
                     .Include(u => u.ReceiverIdxNavigation)
-                    .OrderByDescending(p => p.CreatedOn)
+                    
+                    .OrderBy(u => u.SenderIdxNavigation)
+                    
                     .Where(u => u.ReceiverIdx ==
                                 Helper.GetUserIndex(contextFactory, userId)) 
+                    .ToList()
+                    .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
+                return result;
+            }
+        }
+
+        public static List<POCO.Message> GetConversationAsync(IDbContextFactory<cosc2650Context> contextFactory, string userId, string contactId)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var result = new List<POCO.Message>();
+                dbc.Messages
+                    .Where(message => message.SenderIdx == Helper.GetUserIndex(contextFactory, userId)
+                        && message.ReceiverIdx == Helper.GetUserIndex(contextFactory, contactId)
+                        || message.SenderIdx == Helper.GetUserIndex(contextFactory, contactId)
+                        && message.ReceiverIdx == Helper.GetUserIndex(contextFactory, userId))
+                    .OrderBy(a => a.CreatedOn)
+                    // These two Include statements tell EF to go one level deeper and retrieve navigational items
+                    .Include(u => u.SenderIdxNavigation) 
+                    .Include(u => u.ReceiverIdxNavigation)
                     .ToList()
                     .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
                 return result;
@@ -273,6 +301,25 @@ namespace Webpage.Shared
             }
         }
 
+
+
+        public static List<POCO.User> GetResponders(IDbContextFactory<cosc2650Context> contextFactory, string userId)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var result = new List<POCO.User>();
+                if (userId == "")
+                    dbc.Users
+                        .ToList()
+                        .ForEach(i => result.Add(POCO.User.ToPOCO(i)));
+                else
+                    result.Add(POCO.User.ToPOCO(dbc.Users
+                        .FirstOrDefault(u => u.Email.Equals(userId))));
+
+                return result;
+            }
+        }
+
         public static string ConvertToB64(byte[] imageData)
         {
             try
@@ -285,5 +332,9 @@ namespace Webpage.Shared
                 return string.Empty;
             }
         }
+
+    
+
+        
     }
 }
