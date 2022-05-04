@@ -28,14 +28,17 @@ namespace Webpage.POCO
         public string UserLocationCode { get; set; }
         public string PostLocationCode { get; set; }
         public string Filename { get; set; }
-
         public List<Attachment> Attachments { get; set; }
         public List<Category> Categories { get; set; }
+
+        public decimal? CalculatedRate { get; set; }
+        public string CalculatedRateP => (CalculatedRate.Value * 100).ToString("N");
 
         public Post()
         {
             Attachments = new List<Attachment>();
             Categories = new List<Category>();
+            CalculatedRate = null;
         }
 
         public static Post ToPOCO(EFModel.Posts post) {

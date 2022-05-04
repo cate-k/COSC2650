@@ -55,8 +55,11 @@
                 </div>
             }
             <a href="/MessagePages/AddMessages/?messageTitle=@post.Subject.Replace(' ','%') &&owner=@post.Email">Send Message</a>
-            
-            
+            @if (post.CalculatedRate.HasValue)
+            {
+                <br><br>                
+                @:Post rating: @post.CalculatedRateP% 
+            }
         </div>
     }
 </div>

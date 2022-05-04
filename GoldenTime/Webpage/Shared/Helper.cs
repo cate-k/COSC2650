@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Webpage.EFModel;
 using System.Threading.Tasks;
+using Webpage.POCO;
+using System.Data;
 
 namespace Webpage.Shared
 {
@@ -26,6 +28,17 @@ namespace Webpage.Shared
         private static List<POCO.Category> CACHED_CATEGORY_LIST = null; //Make sure we need to init static property.
         public static List<POCO.Category> Cached_Categories_Flat => CACHED_CATEGORY_FLAT_LIST;
         public static List<POCO.Category> Cached_Categories => CACHED_CATEGORY_LIST;
+
+        internal static User GetUserDeep(IDbContextFactory<cosc2650Context> contextFactory, string userId)
+        {
+            using (var dbc = contextFactory.CreateDbContext()) { 
+                var user = dbc.Users
+                    .Include(g => g.Preferences)
+                    .ThenInclude(g => g.PreferenceIdxNavigation)
+                    .FirstOrDefault(x => x.Email == userId);
+                return User.ToPOCO(user);               
+            }
+        }
 
         // Private, build flat categories
         public static List<POCO.Category> GetCategoriesFlat(IDbContextFactory<cosc2650Context> contextFactory)
@@ -47,6 +60,31 @@ namespace Webpage.Shared
             }
 
             return CACHED_CATEGORY_FLAT_LIST;
+        }
+
+        internal static void ReplaceUserCategories(IDbContextFactory<cosc2650Context> contextFactory, List<POCO.Category> categories, int userId)
+        {
+            using (var dbc = contextFactory.CreateDbContext()) {
+                var removable = dbc.Preferences
+                    .Include(p => p.PreferenceIdxNavigation)
+                    .Where(p => p.UserIdx == userId && p.PreferenceIdxNavigation.Name.Equals("MatchCategory"));
+
+                dbc.Preferences.RemoveRange(removable);
+                
+                if (categories.Any())
+                {
+                    var pref = dbc.Preference.FirstOrDefault(p => p.Name.Equals("MatchCategory"));
+
+                    categories.ForEach(c => dbc.Preferences.Add(new Preferences() { 
+                        UserIdx = userId,
+                        PreferenceIdx = pref.Idx,
+                        PreferenceIdxNavigation = pref,
+                        PreferenceValue = c.Idx.ToString()                    
+                    }));
+                }
+
+                dbc.SaveChanges();
+            }
         }
 
         // Create Categories in a structured tree
@@ -94,6 +132,12 @@ namespace Webpage.Shared
         {
             using (var dbc = contextFactory.CreateDbContext())
                 return dbc.Users.Where(u => u.Idx == user_index).FirstOrDefault().Email;
+        }
+
+        public static string GetUserName(IDbContextFactory<cosc2650Context> contextFactory, string claim_email)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+                return dbc.Users.Where(u => u.Email == claim_email).FirstOrDefault().FullName;
         }
 
         // Fetch User isAdmin by index
@@ -152,7 +196,7 @@ namespace Webpage.Shared
         }
 
         // Returns selected categories on the post as list of POCOs
-        public static List<POCO.Category> GetPostSelectedCategories(IDbContextFactory<cosc2650Context> contextFactory,
+        public static List<POCO.Category> GetItemSelectedCategories(IDbContextFactory<cosc2650Context> contextFactory,
             IFormCollection form)
         {
             var names = form.Select(s => s.Key);
@@ -160,7 +204,7 @@ namespace Webpage.Shared
         }
 
         // Get last x posts
-        public static List<POCO.Post> GetPosts(IDbContextFactory<cosc2650Context> contextFactory, int topItems = 10)
+        public static List<POCO.Post> GetPosts(IDbContextFactory<cosc2650Context> contextFactory, Rating rating, int topItems = 10)
         {
             // Refactored; Multiple Includes() cause cartesian product explosion and exponentially degraded performance
             // with each additional item load. 
@@ -171,8 +215,7 @@ namespace Webpage.Shared
 
                 var result = new List<POCO.Post>();
                 var p = dbc.Posts
-                    .OrderByDescending(p => p.CreatedOn)
-                    .Take(topItems);
+                    .OrderByDescending(p => p.CreatedOn);                   
                 var postIndexes = p.Select(f => f.Idx);
                 var userIndexes = p.Select(f => f.UserIdx).Distinct();
                 var locationIndexes = p.Select(f => f.LocationIdx).Distinct();
@@ -195,7 +238,14 @@ namespace Webpage.Shared
 
                 p.ToList().ForEach(i => result.Add(POCO.Post.ToPOCO(i)));
 
-                return result;
+                // if we have rating object, rate and order the list
+                if (rating != null)
+                {
+                    result.ForEach(p => p.CalculatedRate = rating.Calculate(p));
+                    result = result.OrderByDescending(p => p.CalculatedRate).ThenByDescending(p => p.CreatedOn).ToList();
+                }
+
+                return result.Take(topItems).ToList();
             }
         }
 
@@ -208,9 +258,31 @@ namespace Webpage.Shared
                     .Include(u =>
                         u.SenderIdxNavigation) // These two Include statements tell EF to go one level deeper and retrieve navigational items
                     .Include(u => u.ReceiverIdxNavigation)
-                    .OrderByDescending(p => p.CreatedOn)
+                    
+                    .OrderBy(u => u.SenderIdxNavigation)
+                    
                     .Where(u => u.ReceiverIdx ==
                                 Helper.GetUserIndex(contextFactory, userId)) 
+                    .ToList()
+                    .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
+                return result;
+            }
+        }
+
+        public static List<POCO.Message> GetConversationAsync(IDbContextFactory<cosc2650Context> contextFactory, string userId, string contactId)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var result = new List<POCO.Message>();
+                dbc.Messages
+                    .Where(message => message.SenderIdx == Helper.GetUserIndex(contextFactory, userId)
+                        && message.ReceiverIdx == Helper.GetUserIndex(contextFactory, contactId)
+                        || message.SenderIdx == Helper.GetUserIndex(contextFactory, contactId)
+                        && message.ReceiverIdx == Helper.GetUserIndex(contextFactory, userId))
+                    .OrderBy(a => a.CreatedOn)
+                    // These two Include statements tell EF to go one level deeper and retrieve navigational items
+                    .Include(u => u.SenderIdxNavigation) 
+                    .Include(u => u.ReceiverIdxNavigation)
                     .ToList()
                     .ForEach(i => result.Add(POCO.Message.ToPOCO(i)));
                 return result;
@@ -235,6 +307,25 @@ namespace Webpage.Shared
             }
         }
 
+
+
+        public static List<POCO.User> GetResponders(IDbContextFactory<cosc2650Context> contextFactory, string userId)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var result = new List<POCO.User>();
+                if (userId == "")
+                    dbc.Users
+                        .ToList()
+                        .ForEach(i => result.Add(POCO.User.ToPOCO(i)));
+                else
+                    result.Add(POCO.User.ToPOCO(dbc.Users
+                        .FirstOrDefault(u => u.Email.Equals(userId))));
+
+                return result;
+            }
+        }
+
         public static string ConvertToB64(byte[] imageData)
         {
             try
@@ -247,5 +338,9 @@ namespace Webpage.Shared
                 return string.Empty;
             }
         }
+
+    
+
+        
     }
 }

@@ -14,6 +14,7 @@ namespace Webpage.Pages.Profile
     {
         //context factory creation
         private readonly IDbContextFactory<cosc2650Context> _contextFactory;
+        public List<POCO.Category> MyCategories;
 
         //lists to store the pulls from DB
         public List<POCO.User> Users;
@@ -23,6 +24,7 @@ namespace Webpage.Pages.Profile
         public ProfileModel(IDbContextFactory<cosc2650Context> contextFactory)
         {
             _contextFactory = contextFactory;
+            MyCategories = Helper.GetCategoriesFlat(contextFactory); 
         }
 
 
@@ -43,13 +45,20 @@ namespace Webpage.Pages.Profile
         public void OnPost()
         { }
 
+        public IActionResult OnPostUpdateCategories() {
+            var userId = User.GetUserEmail();
+            POCO.User user;
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                user = Helper.GetUsers(_contextFactory, userId).FirstOrDefault();
+            } else 
+                return RedirectToPage("/Account/Login");
 
 
-        
-
-
-
-
-
+            Helper.ReplaceUserCategories(_contextFactory, Helper.GetItemSelectedCategories(_contextFactory, Request.Form), user.Idx);
+            
+            return OnGet();
+        }
     }
 }

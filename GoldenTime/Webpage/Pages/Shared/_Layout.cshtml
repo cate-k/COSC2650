@@ -8,6 +8,8 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -29,7 +31,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Post">Post</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/MessagePages/ViewMessages">Messages</a>
+                            <a class="nav-link text-dark" Href="/chat">Messages</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Profile/Profile">Profile</a>
@@ -63,6 +65,11 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    @* Requirment for blazor operations used in the chat module *@
+    @* <script src="_framework/blazor.webassembly.js"></script> removed as not found*@
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+    <script src="js/scroll.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html>
+        </html>

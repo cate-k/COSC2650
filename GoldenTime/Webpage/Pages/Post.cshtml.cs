@@ -58,7 +58,7 @@ namespace Webpage.Pages
                     };
 
                     // Fetch Categories selected and make the links.
-                    Helper.GetPostSelectedCategories(_contextFactory, Request.Form)
+                    Helper.GetItemSelectedCategories(_contextFactory, Request.Form)
                         .ForEach(c => p.PostCategories.Add(new PostCategories()
                             { CategoryIdx = c.Idx, PostIdxNavigation = p }));
 

@@ -4,9 +4,33 @@
     ViewData["Title"] = "Profile";
 }
 
+@functions {
+    public void ShowTreeScrollable(List<POCO.Category> categories)
+    {
+        <div class="scrollable">
+            @foreach (var category in categories)
+            {
+                    <div class="category-item">
+                        <label class="category-label" for="@category.Idx">@category.Name</label>
+                        <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+                    </div>
+            }
+        </div>
+    }
+
+    public void ShowTree(List<POCO.Category> categories)
+    {
+        @foreach (var category in categories)
+        {
+            <div class="category-item">
+                <label class="category-label" for="@category.Idx">@category.Name</label>
+                <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+            </div>
+        }
+    }
+}
 
 <h1>Profile</h1>
-
 
 @foreach (var item in Model.Users)
 {
@@ -15,14 +39,36 @@
     <p>User Mobile Number:   @Html.DisplayFor(modelItem => item.Mobile)</p>
     <p>User Email:   @Html.DisplayFor(modelItem => item.Email)</p>
 }
-
-
 <br />
+
 <p>
-    To update profile information click <button type="submit" name="showBox" value="Change"/>
+    To update profile information click <button type="submit" name="showBox" value="Change">
         <p>Here</p>
-    
+    </button>
 </p>
+<br /><br />
+
+My Categories<br /><br />
+
+ <form id="updateCategories" method="post" enctype="multipart/form-data">
+
+     @foreach (var category in Model.MyCategories)
+     {
+        <label class="category-label" for="@category.Idx">@category.Name</label>
+        <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+        <br />
+     }
+    <br />
+    
+    <div>
+        <button type="submit" asp-page-handler="UpdateCategories" class="animated-btn">
+            <span>Update categories</span>
+        </button>
+    </div>
+</form>
+
+
+
 
 <br />
 <br />
