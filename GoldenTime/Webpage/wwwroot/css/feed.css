@@ -40,3 +40,26 @@
     padding-left: 18px;
     padding-right: 18px;
 }
+
+.send-msg-btn-container {
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.send-msg-btn {
+    background-color: var(--colour-tulip-tree);
+    color: var(--colour-white);
+    border-radius: 5px;
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+}
+
+.send-msg-btn:hover {
+    background-color: var(--colour-cream-can);
+    color: var(--colour-white);
+}
+
+.post-rating {
+    font-family: "Open Sans Bold";
+}

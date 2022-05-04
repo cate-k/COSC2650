@@ -6,28 +6,13 @@
 }
 
 @functions {
-    public void ShowTreeScrollable(List<POCO.Category> categories)
-    {
-        <div class="scrollable">
-            @foreach (var category in categories)
-            {
-                    <div class="category-item">
-                        <label class="category-label" for="@category.Idx">@category.Name</label>
-                        <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
-                    </div>
-            }
-        </div>
-    }
-
     public void ShowTree(List<POCO.Category> categories)
     {
-        @foreach (var category in categories)
-        {
-            <div class="category-item">
-                <label class="category-label" for="@category.Idx">@category.Name</label>
+            @foreach (var category in categories)
+            {
                 <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
-            </div>
-        }
+                <label class="category-label" for="@category.Idx">@category.Name</label>
+            }
     }
 }
 
@@ -46,20 +31,15 @@
         <textarea class="fields-textarea" asp-for="Post.Content" placeholder="Enter description here..."></textarea>
 
         <h5 class="field-labels">Categories</h5>
-        @foreach (var category in Helper.Cached_Categories)
-        {
-            @if (category.Children.Any())
+        <div class="category-items">
+            @foreach (var category in Helper.Cached_Categories)
             {
-                <span class="category-heading">@category.Name</span>
-
-                if (category.Children.Count >= 3)
+                @if (category.Children.Any())
                 {
-                    ShowTreeScrollable(category.Children);
-                } else {
                     ShowTree(category.Children);
                 }
             }
-        }
+        </div>
 
         <h5 class="field-labels">Event Start Date</h5>
         <input class="fields" type="date" asp-for="Post.StartsOn" />
@@ -69,7 +49,7 @@
 
         <h5 class="field-labels">Area Code of Event</h5>
         <input class="fields" type="number" asp-for="Post.PostCode" data-val="true"
-               data-val-required="The area code of the event is required." placeholder="0000" />
+                data-val-required="The area code of the event is required." placeholder="0000" />
         <br />
 
         <h5 class="field-labels">Attachment</h5>

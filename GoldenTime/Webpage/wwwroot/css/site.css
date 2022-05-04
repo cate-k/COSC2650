@@ -123,7 +123,7 @@ a:hover {
 }
 
 .login-status {
-    width: 350px;
+    width: 500px;
 }
 
 .login-status span {
@@ -194,6 +194,6 @@ body {
 @media (min-width: 1280px) {
     .menu-links {
         font-size: 1.2rem;
-        margin-left: 555px;
+        margin-left: 100px;
     }
 }

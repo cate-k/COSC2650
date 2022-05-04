@@ -54,11 +54,16 @@
                     }
                 </div>
             }
-            <a href="/MessagePages/AddMessages/?messageTitle=@post.Subject.Replace(' ','%') &&owner=@post.Email">Send Message</a>
+
+            <div class="send-msg-btn-container">
+                <a class="send-msg-btn" href="/MessagePages/AddMessages/?messageTitle=@post.Subject.Replace(' ','%') &&owner=@post.Email">
+                    Send @post.FullName a message
+                </a>
+            </div>
+
             @if (post.CalculatedRate.HasValue)
             {
-                <br><br>                
-                @:Post rating: @post.CalculatedRateP% 
+                @:<span class="post-rating">Post Matching Rating:</span> @post.CalculatedRateP%
             }
         </div>
     }
