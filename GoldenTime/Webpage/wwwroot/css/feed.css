@@ -1,4 +1,8 @@
-﻿.feed-container h3,
+﻿body {
+    font-family: "Open Sans";
+}
+
+.feed-container h3,
 .uploader-name {
     font-family: "Open Sans Bold";
 }

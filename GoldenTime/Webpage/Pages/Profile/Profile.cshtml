@@ -5,88 +5,63 @@
 }
 
 @functions {
-    public void ShowTreeScrollable(List<POCO.Category> categories)
-    {
-        <div class="scrollable">
-            @foreach (var category in categories)
-            {
-                    <div class="category-item">
-                        <label class="category-label" for="@category.Idx">@category.Name</label>
-                        <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
-                    </div>
-            }
-        </div>
-    }
-
     public void ShowTree(List<POCO.Category> categories)
     {
         @foreach (var category in categories)
         {
             <div class="category-item">
-                <label class="category-label" for="@category.Idx">@category.Name</label>
                 <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
+                <label class="category-label" for="@category.Idx">@category.Name</label>
             </div>
         }
     }
 }
 
-<h1>Profile</h1>
+<head>
+    <link rel="stylesheet" href="~/css/profile.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+</head>
+
+<button type="submit" name="showBox" value="Change" class="edit-btn" title="Edit profile information">
+    <i class="fa-solid fa-pencil"></i>
+</button>
 
 @foreach (var item in Model.Users)
 {
-    <p>User Full Name:   @Html.DisplayFor(modelItem => item.FullName)</p>
-    <p>User Age:   @Html.DisplayFor(modelItem => item.Age)</p>
-    <p>User Mobile Number:   @Html.DisplayFor(modelItem => item.Mobile)</p>
-    <p>User Email:   @Html.DisplayFor(modelItem => item.Email)</p>
+    <h1>Welcome, @Html.DisplayFor(modelItem => item.FullName)!</h1>
+
+    <p><span class="bold-text">Age:</span> @Html.DisplayFor(modelItem => item.Age)</p>
+    <p><span class="bold-text">Mobile Number:</span>   @Html.DisplayFor(modelItem => item.Mobile)</p>
+    <p><span class="bold-text">Email:</span>   @Html.DisplayFor(modelItem => item.Email)</p>
 }
-<br />
 
-<p>
-    To update profile information click <button type="submit" name="showBox" value="Change">
-        <p>Here</p>
-    </button>
-</p>
-<br /><br />
-
-My Categories<br /><br />
+<h2>My Categories</h2>
 
  <form id="updateCategories" method="post" enctype="multipart/form-data">
-
-     @foreach (var category in Model.MyCategories)
-     {
-        <label class="category-label" for="@category.Idx">@category.Name</label>
-        <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
-        <br />
-     }
-    <br />
-    
-    <div>
-        <button type="submit" asp-page-handler="UpdateCategories" class="animated-btn">
-            <span>Update categories</span>
-        </button>
+    <div class="category-items">
+        @foreach (var category in Model.MyCategories)
+        {
+            @if (category.Children.Any())
+            {
+                ShowTree(category.Children);
+            }
+        }
     </div>
+    
+    <button type="submit" asp-page-handler="UpdateCategories" class="animated-btn">
+        <span>Update categories</span>
+    </button>
 </form>
 
-
-
-
-<br />
-<br />
 @foreach (var item in Model.Users)
 {
-    <h4>@Html.DisplayFor(modelItem => item.FullName): Posts</h4>
-
+    <h4>@Html.DisplayFor(modelItem => item.FullName)'s Posts</h4>
 }
 
-<br />
-<br />
 @foreach (var item in Model.Users)
 {
-    <h4>@Html.DisplayFor(modelItem => item.FullName): Messages</h4>
-
+    <h4>@Html.DisplayFor(modelItem => item.FullName)'s Messages</h4>
 }
-
-<br />
 
 <table class="table">
     <tbody>

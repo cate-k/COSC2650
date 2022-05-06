@@ -1,11 +1,14 @@
 ﻿h2,
 h3 {
     font-family: "Open Sans Bold";
-    margin-top: 25px;
+    margin-top: 30px;
+}
+
+p {
+    margin-bottom: 5px;
 }
 
 label {
-    font-family: "Open Sans Bold";
     display: block;
 }
 
@@ -15,7 +18,56 @@ input {
     margin-bottom: 15px;
 }
 
+.bold-text {
+    font-family: "Open Sans Bold";
+}
+
 #profile-form {
     margin-left: 28%;
     width: 100%;
+}
+
+.edit-btn {
+    border: 1px solid var(--colour-tulip-tree);
+    border-radius: 50px;
+    background-color: var(--colour-tulip-tree);
+    color: var(--colour-white);
+    height: 50px;
+    width: 50px;
+    float: right;
+}
+
+.category-items {
+    display: inline-block;
+    width: 100%;
+}
+
+.category-item {
+    float: left;
+    margin-right: 10px;
+    width: 18%;
+}
+
+.category-label {
+    border: 1px solid var(--colour-tulip-tree);
+    border-radius: 25px;
+    text-align: center;
+    margin-top: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.category-checkbox {
+    display: none;
+}
+
+.category-checkbox:checked + .category-label {
+    background-color: var(--colour-tulip-tree);
+    color: var(--colour-white);
+}
+
+.animated-btn {
+    display: block;
+    margin-top: 15px;
 }
