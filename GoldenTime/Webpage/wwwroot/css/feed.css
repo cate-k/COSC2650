@@ -52,7 +52,7 @@
 
 .send-msg-btn {
     background-color: var(--colour-tulip-tree);
-    color: var(--colour-white);
+    color: var(--colour-white) !important;
     border-radius: 5px;
     width: 30%;
     padding: 10px;

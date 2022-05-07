@@ -2,24 +2,39 @@
 @model Webpage.Pages.Admin.Administer_Messages.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Message";
 }
 
-<h1>Delete</h1>
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
 
-<h3>Are you sure you want to delete this?</h3>
+<h1>Delete Message</h1>
+
+<h3>Are you sure you want to delete this message?</h3>
 <div>
-    <h4>Messages</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Messages.CreatedOn)
+            Recipient Email
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.ReceiverIdxNavigation.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Sender Email
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Messages.SenderIdxNavigation.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Created On
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Messages.CreatedOn)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Messages.ModifiedOn)
+            Edited On
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Messages.ModifiedOn)
@@ -31,34 +46,17 @@
             @Html.DisplayFor(model => model.Messages.Subject)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Messages.Content)
+            Message
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Messages.Content)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Messages.ParentIdxNavigation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Messages.ParentIdxNavigation.Subject)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Messages.ReceiverIdxNavigation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Messages.ReceiverIdxNavigation.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Messages.SenderIdxNavigation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Messages.SenderIdxNavigation.Email)
         </dd>
     </dl>
     
     <form method="post">
         <input type="hidden" asp-for="Messages.Idx" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <a asp-page="./Index">Back to Messages Sent</a>
     </form>
 </div>
+<br />

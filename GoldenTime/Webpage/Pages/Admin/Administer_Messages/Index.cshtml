@@ -2,71 +2,63 @@
 @model Webpage.Pages.Admin.Administer_Messages.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Messages Sent";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+</head>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].ModifiedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].Subject)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].ParentIdxNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].ReceiverIdxNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Messages[0].SenderIdxNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Messages) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentIdxNavigation.Subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceiverIdxNavigation.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SenderIdxNavigation.Email)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
-            </td>
-        </tr>
+<div class="create-new-msg-btn-container">
+    <a class="create-new-msg-btn" asp-page="Create">
+        Create New Message
+    </a>
+</div>
+
+<h1>Messages Sent</h1>
+<br />
+
+@foreach (var item in Model.Messages)
+{
+<div class="message-container">
+    <p class="message-content">@Html.DisplayFor(modelItem => item.Content)</p>
+
+    <div class="admin-functionalities">
+        <a asp-page="./Edit" asp-route-id="@item.Idx">
+            <i class="fa-solid fa-pencil" title="Edit message"></i>
+        </a>
+        <a asp-page="./Details" asp-route-id="@item.Idx">
+            <i class="fa-solid fa-circle-info" title="View message"></i>
+        </a>
+        <a asp-page="./Delete" asp-route-id="@item.Idx">
+            <i class="fa-solid fa-trash" title="Delete message"></i>
+        </a>
+    </div>
+
+    <p class="message-details">
+        <span class="bold-text">Recipient: </span>
+        @Html.DisplayFor(modelItem => item.ReceiverIdxNavigation.Email)
+    </p>
+
+    <p class="message-details">
+        <span class="bold-text">Sender: </span>
+        @Html.DisplayFor(modelItem => item.SenderIdxNavigation.Email)
+    </p>
+
+    <p class="timestamp">
+        <span class="bold-text">Sent on: </span>
+        @Html.DisplayFor(modelItem => item.CreatedOn)
+    </p>
+
+    @if (item.ModifiedOn != null)
+    {
+        <p class="timestamp">
+            <span class="bold-text">Edited on: </span>
+            @Html.DisplayFor(modelItem => item.ModifiedOn)
+        </p>
+    }
+</div>
 }
-    </tbody>
-</table>
+
+<br />

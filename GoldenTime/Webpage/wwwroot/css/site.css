@@ -40,7 +40,7 @@ a.navbar-brand {
 }
 
 a {
-  color: var(--colour-tulip-tree);
+  color: var(--colour-tulip-tree) !important;
 }
 
 a:hover {
@@ -53,7 +53,7 @@ a:hover {
 
 .btn-primary {
   color: var(--colour-white);
-  background-color: var(--colour-cream-can);
+  background-color: var(--colour-tulip-tree);
   border-color: var(--colour-tulip-tree);
   transition: 0.5s;
 }
@@ -108,7 +108,7 @@ a:hover {
 }
 
 .regular-btn {
-    color: var(--colour-white);
+    color: var(--colour-white) !important;
     background-color: var(--colour-tulip-tree);
     border: 0;
     border-radius: 5px;
@@ -194,6 +194,6 @@ body {
 @media (min-width: 1280px) {
     .menu-links {
         font-size: 1.2rem;
-        margin-left: 100px;
+        margin-left: 30px;
     }
 }

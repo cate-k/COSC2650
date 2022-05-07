@@ -1,0 +1,87 @@
+﻿body {
+    font-family: "Open Sans";
+}
+
+h2, h4, .bold-text {
+    font-family: "Open Sans Bold";
+}
+
+.statistics-container {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.messages-container,
+.posts-container,
+.users-container {
+    width: 30%;
+}
+
+.operations-links {
+    display: flex;
+    font-size: 1.2rem;
+    width: 15%;
+    margin-top: 10px;
+}
+
+.create-new-msg-btn-container {
+    float: right;
+    margin-top: 10px;
+}
+
+.create-new-msg-btn {
+    color: var(--colour-white) !important;
+    background-color: var(--colour-tulip-tree);
+    border: 1px solid var(--colour-tulip-tree);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* View Messages Page */
+.message-container {
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
+.message-content {
+    background-color: var(--colour-gallery);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 5px;
+}
+
+.admin-functionalities {
+    float: right;
+    margin-top: 5px;
+}
+
+.admin-functionalities a {
+    text-decoration: none;
+}
+
+.admin-functionalities i {
+    color: var(--colour-white) !important;
+    background-color: var(--colour-tulip-tree);
+    border: 1px solid var(--colour-tulip-tree);
+    border-radius: 50px;
+    height: 38px;
+    width: 38px;
+    margin-left: 10px;
+    padding: 10px;
+    transition: all 0.4s;
+}
+
+.admin-functionalities i:hover {
+    background-color: var(--colour-cream-can);
+    border: 1px solid var(--colour-cream-can);
+}
+
+.message-details {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.timestamp {
+    margin: 0;
+    font-size: 0.9rem;
+}

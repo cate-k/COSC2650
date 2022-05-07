@@ -71,3 +71,24 @@ input {
     display: block;
     margin-top: 15px;
 }
+
+.message-container {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.message-content {
+    background-color: var(--colour-gallery);
+    border-radius: 5px;
+    width: 50%;
+    padding: 15px;
+}
+
+.receiver {
+    margin: 0;
+}
+
+.timestamp {
+    margin: 0;
+    font-size: 0.9rem;
+}

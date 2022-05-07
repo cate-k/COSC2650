@@ -2,52 +2,45 @@
 @model Webpage.Pages.Admin.Administer_Messages.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Message";
 }
 
-<h1>Edit</h1>
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
 
-<h4>Messages</h4>
+<h1>Edit Message</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Messages.Idx" />
             <div class="form-group">
-                <label asp-for="Messages.SenderIdx" class="control-label"></label>
-                <select asp-for="Messages.SenderIdx" class="form-control" asp-items="ViewBag.SenderIdx"></select>
-                <span asp-validation-for="Messages.SenderIdx" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Messages.ReceiverIdx" class="control-label"></label>
+                <label asp-for="Messages.ReceiverIdx" class="control-label bold-text">Recipient Email</label>
                 <select asp-for="Messages.ReceiverIdx" class="form-control" asp-items="ViewBag.ReceiverIdx"></select>
                 <span asp-validation-for="Messages.ReceiverIdx" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Messages.CreatedOn" class="control-label"></label>
-                <input asp-for="Messages.CreatedOn" class="form-control" />
-                <span asp-validation-for="Messages.CreatedOn" class="text-danger"></span>
+                <label asp-for="Messages.SenderIdx" class="control-label bold-text">Sender Email</label>
+                <select asp-for="Messages.SenderIdx" class="form-control" asp-items="ViewBag.SenderIdx"></select>
+                <span asp-validation-for="Messages.SenderIdx" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Messages.ModifiedOn" class="control-label"></label>
+                <label asp-for="Messages.ModifiedOn" class="control-label bold-text">Edited On</label>
                 <input asp-for="Messages.ModifiedOn" class="form-control" />
                 <span asp-validation-for="Messages.ModifiedOn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Messages.Subject" class="control-label"></label>
+                <label asp-for="Messages.Subject" class="control-label bold-text"></label>
                 <input asp-for="Messages.Subject" class="form-control" />
                 <span asp-validation-for="Messages.Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Messages.Content" class="control-label"></label>
+                <label asp-for="Messages.Content" class="control-label bold-text">Message</label>
                 <input asp-for="Messages.Content" class="form-control" />
                 <span asp-validation-for="Messages.Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Messages.ParentIdx" class="control-label"></label>
-                <select asp-for="Messages.ParentIdx" class="form-control" asp-items="ViewBag.ParentIdx"></select>
-                <span asp-validation-for="Messages.ParentIdx" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -57,8 +50,9 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to Messages Sent</a>
 </div>
+<br />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

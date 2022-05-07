@@ -1,84 +1,109 @@
 ﻿@page
 @model Webpage.Pages.Admin.IndexModel
 @{
+    ViewData["Title"] = "Admin";
 }
 
-<H2>Statistics</H2>
-<H3>Created Messages</H3>
-    <table >
-            <tr><th width="40%">Created</th><th width="20%">Number</th></tr>
-            @for (int i=0;i<3;i++)
-            {
-                <tr>
-                    <td>@if (i == 0)
-                        {
-                            @:Today
-                        } else if (i == 1)
-                        {
-                            @:Last 7 days
-                        } else 
-                        {
-                            @:Last 31 days
-                        }   
-                        </td>
-                        <td>@Model.stats[0,i].ToString()</td>
-                </tr>
-            }
-        </table>
-<H3>Created Posts</H3>
-    <table >
-            <tr><th width="40%">Created</th><th width="20%">Number</th></tr>
-            @for (int i=0;i<3;i++)
-            {
-                <tr>
-                    <td>@if (i == 0)
-                        {
-                            @:Today
-                        } else if (i == 1)
-                        {
-                            @:Last 7 days
-                        } else 
-                        {
-                            @:Last 31 days
-                        }   
-                        </td>
-                        <td>@Model.stats[1,i].ToString()</td>
-                </tr>
-            }
-        </table>
-<H3>Users logged in</H3>
-    <table >
-            <tr><th width="40%">Logged in</th><th width="20%">Number</th></tr>
-            @for (int i=0;i<3;i++)
-            {
-                <tr>
-                    <td>@if (i == 0)
-                        {
-                            @:Today
-                        } else if (i == 1)
-                        {
-                            @:Last 7 days
-                        } else 
-                        {
-                            @:Last 31 days
-                        }   
-                        </td>
-                        <td>@Model.stats[2,i].ToString()</td>
-                </tr>
-            }
-        </table>
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+</head>
 
-<H2>Operations</H2>
-<div class="menu-links navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Administer_Messages/index">Messages</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Administer_Posts/index">Posts</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Administer_Users/index">Users</a>
-        </li>
-    </ul>
+<h2>Statistics</h2>
+
+<div class="statistics-container">
+    <div class="messages-container">
+        <h4>
+            <i class="fa-solid fa-envelope"></i>
+            Messages Sent
+        </h4>
+        <table>
+            <tr><th width="40%">Sent</th><th width="20%">Number</th></tr>
+            @for (int i = 0; i < 3; i++)
+            {
+                <tr>
+                    <td>
+                        @if (i == 0)
+                        {
+                            @:Today
+                        }
+                        else if (i == 1)
+                        {
+                            @:Last 7 days
+                        }
+                        else
+                        {
+                            @:Last 31 days
+                        }
+                </td>
+                <td>@Model.stats[0, i].ToString()</td>
+            </tr>
+        }
+        </table>
+    </div>
+
+    <div class="posts-container">
+        <h4>
+            <i class="fa-solid fa-message"></i>
+            Posts Created
+        </h4>
+        <table>
+            <tr><th width="40%">Created</th><th width="20%">Number</th></tr>
+            @for (int i = 0; i < 3; i++)
+            {
+                <tr>
+                    <td>
+                        @if (i == 0)
+                        {
+                            @:Today
+                        }
+                        else if (i == 1)
+                        {
+                            @:Last 7 days
+                        }
+                        else
+                        {
+                            @:Last 31 days
+                        }
+                    </td>
+                    <td>@Model.stats[1, i].ToString()</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="users-container">
+        <h4>
+            <i class="fa-solid fa-user-group"></i>
+            Users Logged In
+        </h4>
+        <table>
+            <tr><th width="40%">Logged in</th><th width="20%">Number</th></tr>
+            @for (int i = 0; i < 3; i++)
+            {
+                <tr>
+                    <td>
+                        @if (i == 0)
+                        {
+                            @:Today
+                        }
+                        else if (i == 1)
+                        {
+                            @:Last 7 days
+                        }
+                        else
+                        {
+                            @:Last 31 days
+                        }
+                    </td>
+                    <td>@Model.stats[2, i].ToString()</td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
+
+<h2>Operations</h2>
+<a class="operations-links" asp-area="" asp-page="/Admin/Administer_Messages/index">View Messages</a>
+<a class="operations-links" asp-area="" asp-page="/Admin/Administer_Posts/index">View Posts</a>
+<a class="operations-links" asp-area="" asp-page="/Admin/Administer_Users/index">View Users</a>
