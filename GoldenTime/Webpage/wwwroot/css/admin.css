@@ -85,3 +85,27 @@ h2, h4, .bold-text {
     margin: 0;
     font-size: 0.9rem;
 }
+
+/* View Posts Page */
+.view-posts-container {
+    width: 100%;
+}
+
+.post-container {
+    border: 1px solid var(--colour-mercury);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* View Users Page */
+.user-created-container {
+    border: 1px solid var(--colour-mercury);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.admin-badge {
+    color: var(--colour-tulip-tree);
+}

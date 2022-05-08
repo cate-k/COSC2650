@@ -2,27 +2,14 @@
 @model Webpage.Pages.Admin.Administer_Posts.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Post Details";
 }
 
-<h1>Details</h1>
+<h1>Post Details</h1>
 
 <div>
-    <h4>Posts</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.CreatedOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Posts.CreatedOn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.ModifiedOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Posts.ModifiedOn)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Posts.Subject)
         </dt>
@@ -36,38 +23,44 @@
             @Html.DisplayFor(model => model.Posts.Content)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.StartingOn)
+            Poster Email
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Posts.StartingOn)
+            @Html.DisplayFor(model => model.Posts.UserIdxNavigation.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.EndingOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Posts.EndingOn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.LocationIdxNavigation)
+            Area Code
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Posts.LocationIdxNavigation.AreaCode)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.ParentIdxNavigation)
+            Start Date
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Posts.ParentIdxNavigation.Subject)
+            @Html.DisplayFor(model => model.Posts.StartingOn)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Posts.UserIdxNavigation)
+            End Date
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Posts.UserIdxNavigation.Email)
+            @Html.DisplayFor(model => model.Posts.EndingOn)
+        </dd>
+        <dt class="col-sm-2">
+            Created On
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Posts.CreatedOn)
+        </dd>
+        <dt class="col-sm-2">
+            Edited On
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Posts.ModifiedOn)
         </dd>
     </dl>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Posts.Idx">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to Posts Created</a>
 </div>

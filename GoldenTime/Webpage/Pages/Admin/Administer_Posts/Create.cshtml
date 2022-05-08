@@ -2,52 +2,46 @@
 @model Webpage.Pages.Admin.Administer_Posts.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create New Post";
 }
 
-<h1>Create</h1>
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
 
-<h4>Posts</h4>
+<h1>Create New Post</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Posts.UserIdx" class="control-label"></label>
+                <label asp-for="Posts.UserIdx" class="control-label bold-text">Recipient Email</label>
                 <select asp-for="Posts.UserIdx" class ="form-control" asp-items="ViewBag.UserIdx"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Posts.ModifiedOn" class="control-label"></label>
-                <input asp-for="Posts.ModifiedOn" class="form-control" />
-                <span asp-validation-for="Posts.ModifiedOn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Posts.Subject" class="control-label"></label>
+                <label asp-for="Posts.Subject" class="control-label bold-text"></label>
                 <input asp-for="Posts.Subject" class="form-control" />
                 <span asp-validation-for="Posts.Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Posts.Content" class="control-label"></label>
+                <label asp-for="Posts.Content" class="control-label bold-text"></label>
                 <input asp-for="Posts.Content" class="form-control" />
                 <span asp-validation-for="Posts.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Posts.ParentIdx" class="control-label"></label>
-                <select asp-for="Posts.ParentIdx" class ="form-control" asp-items="ViewBag.ParentIdx"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Posts.StartingOn" class="control-label"></label>
+                <label asp-for="Posts.StartingOn" class="control-label bold-text">Start Date</label>
                 <input asp-for="Posts.StartingOn" class="form-control" />
                 <span asp-validation-for="Posts.StartingOn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Posts.EndingOn" class="control-label"></label>
+                <label asp-for="Posts.EndingOn" class="control-label bold-text">End Date</label>
                 <input asp-for="Posts.EndingOn" class="form-control" />
                 <span asp-validation-for="Posts.EndingOn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Posts.LocationIdx" class="control-label"></label>
+                <label asp-for="Posts.LocationIdx" class="control-label bold-text">Area Code</label>
                 <select asp-for="Posts.LocationIdx" class ="form-control" asp-items="ViewBag.LocationIdx"></select>
             </div>
             <div class="form-group">

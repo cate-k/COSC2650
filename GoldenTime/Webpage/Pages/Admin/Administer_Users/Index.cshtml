@@ -2,65 +2,68 @@
 @model Webpage.Pages.Admin.Administer_Users.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Users Created";
 }
 
-<h1>Index</h1>
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+</head>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Users[0].Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users[0].FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users[0].Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users[0].Mobile)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users[0].IsAdmin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Users[0].LocationIdxNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Users) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mobile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAdmin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocationIdxNavigation.AreaCode)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Idx">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Idx">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Idx">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="create-new-msg-btn-container">
+    <a class="create-new-msg-btn" asp-page="Create">
+        Create New User
+    </a>
+</div>
+
+<h1>Users Created</h1>
+<br />
+
+<div class="users-created-container">
+    @foreach (var item in Model.Users)
+    {
+        <div class="user-created-container">
+            <div class="admin-functionalities">
+                <a asp-page="./Edit" asp-route-id="@item.Idx">
+                    <i class="fa-solid fa-pencil" title="Edit message"></i>
+                </a>
+                <a asp-page="./Details" asp-route-id="@item.Idx">
+                    <i class="fa-solid fa-circle-info" title="View message"></i>
+                </a>
+                <a asp-page="./Delete" asp-route-id="@item.Idx">
+                    <i class="fa-solid fa-trash" title="Delete message"></i>
+                </a>
+            </div>
+
+            <h3 class="bold-text">
+                @item.FullName
+
+                @if (@item.IsAdmin == 1)
+                {
+                    <i class="fa-solid fa-shield-halved admin-badge" title="Admin Permissions"></i>
+                }
+            </h3>
+
+            <p>
+                <span class="bold-text">Age:</span>
+                @item.Age
+            </p>
+
+            <p>
+                <span class="bold-text">Email:</span>
+                @item.Email
+            </p>
+
+            <p>
+                <span class="bold-text">Mobile:</span>
+                @item.Mobile
+            </p>
+
+            <p>
+                <span class="bold-text">Area Code:</span>
+                @item.LocationIdxNavigation.AreaCode
+            </p>
+        </div>
+    }
+</div>
+<br />
