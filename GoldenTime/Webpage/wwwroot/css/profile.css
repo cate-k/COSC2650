@@ -31,9 +31,10 @@ input {
     border: 1px solid var(--colour-tulip-tree);
     border-radius: 50px;
     background-color: var(--colour-tulip-tree);
-    color: var(--colour-white);
-    height: 50px;
-    width: 50px;
+    color: var(--colour-white) !important;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     float: right;
 }
 

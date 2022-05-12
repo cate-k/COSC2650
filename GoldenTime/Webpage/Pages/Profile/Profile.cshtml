@@ -22,13 +22,9 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
 </head>
 
-<a asp-page="/Profile/SecondProfile">
-    <button  type="submit" name="showBox" value="Change" class="edit-btn" title="Edit profile information">
-        <i class="fa-solid fa-pencil"></i>
-    </button>
-
+<a asp-page="/Profile/SecondProfile" class="edit-btn">
+    <i class="fa-solid fa-pencil"></i>
 </a>
-
 
 @foreach (var item in Model.Users)
 {
