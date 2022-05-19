@@ -1,8 +1,18 @@
 ﻿@using Webpage.Shared
+
+
+@using Microsoft.EntityFrameworkCore;
+@using Webpage.EFModel;
+@using static Webpage.Shared.Helper;
+
+
+@inject IDbContextFactory<cosc2650Context> _contextFactory;
+
+
 @if (!string.IsNullOrEmpty(User.GetUserEmail()))
 {
     <form method="post" asp-page="/Account/Logout" class="login-status">
-        <span>Welcome, @User.GetUserEmail()!</span>
+        <span>Welcome, @Helper.GetUserName(_contextFactory, User.GetUserEmail())!</span>
         <button type="submit" class="regular-btn">Logout</button>
     </form>
 }
