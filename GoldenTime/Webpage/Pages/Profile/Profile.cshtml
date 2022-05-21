@@ -39,6 +39,10 @@
 
  <form id="updateCategories" method="post" enctype="multipart/form-data">
     <div class="category-items">
+        @if (!Model.MyCategories.Any()) 
+        {
+            @:No categories fetched.
+        }
         @foreach (var category in Model.MyCategories)
         {
             @if (category.Children.Any())
