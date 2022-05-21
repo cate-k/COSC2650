@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Webpage.EFModel;
+using Webpage.Shared;
 
 namespace Webpage.Pages.Profile
 {
@@ -65,7 +66,7 @@ namespace Webpage.Pages.Profile
 
                 //v
                 var userObj = connection.Users
-                    .Where(i => i.Email == "s3820255@student.rmit.edu.au") //this is where the session loggedin token goes
+                    .Where(i => i.Email == User.GetUserEmail()) //this is where the session loggedin token goes
                     .FirstOrDefault();
 
                 userObj.LocationIdxNavigation = newLocation;
