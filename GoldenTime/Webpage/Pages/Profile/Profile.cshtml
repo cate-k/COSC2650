@@ -9,6 +9,7 @@
     {
         @foreach (var category in categories)
         {
+            @:tick-tock
             <div class="category-item">
                 <input class="category-checkbox" type="checkbox" id="@category.Idx" name="@category.Name" />
                 <label class="category-label" for="@category.Idx">@category.Name</label>
