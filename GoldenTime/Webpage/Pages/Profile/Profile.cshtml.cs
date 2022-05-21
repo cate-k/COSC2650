@@ -19,6 +19,7 @@ namespace Webpage.Pages.Profile
         //lists to store the pulls from DB
         public List<POCO.User> Users;
         public List<POCO.Message> Messages;
+        public List<POCO.Post> Posts;
 
         //setting context factory
         public ProfileModel(IDbContextFactory<cosc2650Context> contextFactory)
@@ -36,6 +37,7 @@ namespace Webpage.Pages.Profile
             {
                 Users = Helper.GetUsers(_contextFactory, userId );
                 Messages = Helper.GetMessages(_contextFactory, userId);
+                Posts = Helper.GetUserPosts(_contextFactory, Helper.GetUserIndex(_contextFactory, userId));
                 return Page();
             }
            
