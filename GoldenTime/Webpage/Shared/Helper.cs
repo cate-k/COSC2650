@@ -249,6 +249,45 @@ namespace Webpage.Shared
             }
         }
 
+        public static List<POCO.Post> GetUserPosts(IDbContextFactory<cosc2650Context> contextFactory, int userIdx)
+        {
+            // Refactored; Multiple Includes() cause cartesian product explosion and exponentially degraded performance
+            // with each additional item load. 
+            // Loads non-lazy what is needed only
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                dbc.ChangeTracker.LazyLoadingEnabled = false;
+
+                var result = new List<POCO.Post>();
+                var p = dbc.Posts
+                    .Where(p => p.UserIdx == userIdx)
+                    .OrderByDescending(p => p.CreatedOn);
+                var postIndexes = p.Select(f => f.Idx);
+                var userIndexes = p.Select(f => f.UserIdx).Distinct();
+                var locationIndexes = p.Select(f => f.LocationIdx).Distinct();
+                var attachmentIndexes = dbc.Attachments.Where(att => postIndexes.Contains(att.PostIdx))
+                    .Select(attidx => attidx.Idx).Distinct();
+                var categoryIndexes = dbc.PostCategories.Where(pca => postIndexes.Contains(pca.PostIdx))
+                    .Select(catidx => catidx.CategoryIdx).Distinct();
+
+                dbc.Users.Where(u => userIndexes.Contains(u.Idx))
+                    .Include(ul => ul.LocationIdxNavigation)
+                    .Load();
+                dbc.Location.Where(u => locationIndexes.Contains(u.Idx))
+                    .Load();
+                dbc.Attachments.Where(u => attachmentIndexes.Contains(u.Idx))
+                    .Load();
+                dbc.PostCategories.Where(u => postIndexes.Contains(u.PostIdx))
+                    .Load();
+                dbc.Category.Where(u => categoryIndexes.Contains(u.Idx))
+                    .Load();
+
+                p.ToList().ForEach(i => result.Add(POCO.Post.ToPOCO(i)));
+
+                return result.ToList();
+            }
+        }
+
         public static List<POCO.Message> GetMessages(IDbContextFactory<cosc2650Context> contextFactory, string userId)
         {
             using (var dbc = contextFactory.CreateDbContext())

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Webpage.EFModel;
+using Webpage.Shared;
 
 namespace Webpage.Pages.Profile
 {
@@ -42,46 +43,64 @@ namespace Webpage.Pages.Profile
                 .Where(i => i.AreaCode == v)
                 .FirstOrDefault();
 
-            //Checking if the users current location exists in the DB
-            if (locationObject == null)
+            //v
+            var userObj = connection.Users
+                .Where(i => i.Email == User.GetUserEmail()) //this is where the session loggedin token goes
+                .FirstOrDefault();
+
+            try
             {
-                //if it doesnt create new location and add it to user
-                var newLocation = new EFModel.Location
+                //Checking if the users current location exists in the DB
+                if (locationObject == null)
                 {
-                    AreaCode = Request.Form["location"],
-                    Country = Request.Form["country"],
-                    Caption = Request.Form["locationCaption"],
-                    Description = Request.Form["locationDescription"],
-                    State = Request.Form["locationState"]
+                    //if it doesnt create new location and add it to user
+                    var newLocation = new EFModel.Location
+                    {
+                        AreaCode = Request.Form["location"],
+                        Country = Request.Form["country"],
+                        Caption = Request.Form["locationCaption"],
+                        Description = Request.Form["locationDescription"],
+                        State = Request.Form["locationState"]
 
 
-                };
+                    };
 
-                connection.Location.Add(newLocation);
+                    connection.Location.Add(newLocation);
+                    userObj.LocationIdxNavigation = newLocation;
+                }
 
+                try
+                {
+                    int x = Convert.ToInt32(Request.Form["age"]);
+                    userObj.Age = x;
+                }
+                catch (Exception)
+                {
+                }
 
-                int x = Convert.ToInt32(Request.Form["age"]);
+                try
+                {
+                    userObj.FullName = Request.Form["fullName"];
+                }
+                catch (Exception)
+                {
+                }
 
+                try
+                {
+                    userObj.Mobile = Request.Form["mobile"];
+                }
+                catch (Exception)
+                {
+                }
 
-                //v
-                var userObj = connection.Users
-                    .Where(i => i.Email == "s3820255@student.rmit.edu.au") //this is where the session loggedin token goes
-                    .FirstOrDefault();
-
-                userObj.LocationIdxNavigation = newLocation;
-                userObj.FullName = Request.Form["fullName"];
-                userObj.Age = x;
-                userObj.Mobile = Request.Form["mobile"];
-
-
-
-
-                connection.Update(userObj);
+                //connection.Update(userObj);
                 connection.SaveChanges();
+
             }
-
-
-
-        }
+            catch (Exception ex)
+            {
+            }
+       }
     }
 }

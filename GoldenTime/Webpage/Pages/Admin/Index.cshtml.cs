@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Webpage.EFModel;
+using Webpage.Shared;
 
 namespace Webpage.Pages.Admin
 {
@@ -45,9 +46,16 @@ namespace Webpage.Pages.Admin
             stats[2, 2] = ctx.Stats.Count(s => s.Event == "Login" && s.Meta == "Success" && s.CreatedOn >= DateTime.Today.AddDays(-30));  // LAst 31 dats
         }
 
-        public void OnGet()
-        {
-            GetStats();
-        }
+ 
+            public IActionResult OnGet()
+            {
+                GetStats();
+                var userId = User.GetUserEmail();
+                if (string.IsNullOrEmpty(userId))
+                {
+                return RedirectToPage("/Account/Login");
+            }
+            return Page();
+        }      
     }
 }

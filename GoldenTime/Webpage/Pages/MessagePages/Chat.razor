@@ -18,8 +18,11 @@
 @inject ISnackbar _snackBar;
 
 <AuthorizeView>
+    <NotAuthorized>
+        @if (true) { NavigationManager.NavigateTo("/Account/Login", true); }
+    </NotAuthorized>
     <Authorized>
-        <h1>Hello @GetUserName(_contextFactory, context.User.GetUserEmail())</h1>
+        
 
 
         <div class="d-flex flex-grow-1 flex-row">
@@ -120,7 +123,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        
         ChatUsers = GetResponders(_contextFactory, "");
         messages.Clear();
         hubConnection = new HubConnectionBuilder()
@@ -140,8 +143,8 @@
 
 
 
-    async Task Send(String receiver, String sender) => //, POCO.Message pMessage removed
-        await hubConnection.SendAsync("SendMessage", receiver, sender);//, pMessage);
+    async Task Send(String receiver, String sender) => 
+        await hubConnection.SendAsync("SendMessage", receiver, sender);
 
 
 
@@ -171,10 +174,10 @@
 
     async Task LoadUserChat(string receiverEmail, string senderEmail)
     {
-        CurrentUserEmail = senderEmail;
-        ContactEmail = receiverEmail;
+        CurrentUserEmail = receiverEmail;
+        ContactEmail = senderEmail;
         messages = GetConversationAsync(_contextFactory, receiverEmail, senderEmail);
-        //_jsRuntime.InvokeAsync<string>("ScrollToBottom", "chatContainer");
+        
     }
     POCO.Message pMessage = new POCO.Message();
     [Parameter] public string NewMessage { get; set; }
@@ -196,7 +199,7 @@
                         Subject = NewMessage,
                         Content = NewMessage,
                         //ParentIdx = Message.ParentIdx, TODO: Need to add this for message collection
-                        //so that when a message has a parent message they stack into a coinversation
+                        //so that when a message has a parent message they stack into a conversation
                     };
 
                     dbc.Messages.Add(m);
@@ -212,7 +215,7 @@
             {
                 _logger.Log(LogLevel.Error, ex, string.Concat("PostModel:OnPost: ", ex.Message), new object[0]);
             }
-            await Send(ContactEmail, CurrentUserEmail);//, pMessage);receiver, sender
+            await Send(ContactEmail, CurrentUserEmail);
         }
     }
 }
