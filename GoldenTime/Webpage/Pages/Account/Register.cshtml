@@ -1,0 +1,73 @@
+﻿@page
+@model Webpage.Pages.Account.Register.CreateModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/admin.css" />
+</head>
+
+<h1>Register</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            
+            <div class="form-group">
+                <label asp-for="Users.FullName" class="control-label bold-text">Full Name</label>
+                <input asp-for="Users.FullName" class="form-control" />
+                <span asp-validation-for="Users.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Users.Age" class="control-label bold-text"></label>
+                <input asp-for="Users.Age" class="form-control" />
+                <span asp-validation-for="Users.Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Locations.AreaCode" class="control-label bold-text">Area Code</label>
+                <input asp-for="Locations.AreaCode" class="form-control" />
+                <span asp-validation-for="Locations.AreaCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Users.Mobile" class="control-label bold-text"></label>
+                <input asp-for="Users.Mobile" class="form-control" />
+                <span asp-validation-for="Users.Mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Users.Email" class="control-label bold-text"></label>
+                <input asp-for="Users.Email" class="form-control" />
+                <span asp-validation-for="Users.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Users.Password" class="control-label bold-text"></label>
+                <input asp-for="Users.Password" class="form-control" />
+                <span asp-validation-for="Users.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
+                <input type="hidden" asp-for="Users.IsAdmin" value=0 class="form-control" />
+                <span asp-validation-for="Users.IsAdmin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<br />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -117,6 +117,7 @@ namespace Webpage.Shared
         public static int GetUserIndex(IDbContextFactory<cosc2650Context> contextFactory, string claim_email)
         {
             using (var dbc = contextFactory.CreateDbContext())
+
                 return dbc.Users.Where(u => u.Email == claim_email).FirstOrDefault().Idx;
         }
 
@@ -147,7 +148,7 @@ namespace Webpage.Shared
                 return dbc.Users.Where(u => u.Idx == user_index).FirstOrDefault().IsAdmin;
         }
 
-        // Fetch Location idx
+        // Fetch Location idx takes in int
         public static int GetLocationIndex(IDbContextFactory<cosc2650Context> contextFactory, int postCode)
         {
             using (var dbc = contextFactory.CreateDbContext())
@@ -156,6 +157,18 @@ namespace Webpage.Shared
                 return location != null ? location.Idx : DEFAULT_LOCATION_IDX;
             }
         }
+
+        // Fetch Location idx takes in string duplicate function added to avoid breaking
+        // code writen by other developers
+        public static int GetLocationIndexString(IDbContextFactory<cosc2650Context> contextFactory, string postCode)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                var location = dbc.Location.Where(u => u.AreaCode == postCode).FirstOrDefault();
+                return location != null ? location.Idx : DEFAULT_LOCATION_IDX;
+            }
+        }
+
         // Get email from the claim.
         public static string GetUserEmail(this ClaimsPrincipal princ)
         {
@@ -378,8 +391,27 @@ namespace Webpage.Shared
             }
         }
 
-    
 
-        
+        public static bool GetUser(IDbContextFactory<cosc2650Context> contextFactory, string email)
+        {
+            using (var dbc = contextFactory.CreateDbContext())
+            {
+                
+                var result = dbc.Users.Where(u => u.Email == email);
+
+                if (result.Any())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                    
+                }
+            }
+        }
+
+     
+
     }
 }

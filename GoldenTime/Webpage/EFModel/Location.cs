@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -14,6 +15,11 @@ namespace Webpage.EFModel
         }
 
         public int Idx { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[0-9]{4}$",
+            ErrorMessage = "Please enter a valid area code.")]
+        [Display(Name = "Postcode")]
         public string AreaCode { get; set; }
         public string Caption { get; set; }
         public string Description { get; set; }
