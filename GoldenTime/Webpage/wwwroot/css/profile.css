@@ -73,6 +73,10 @@ input {
     margin-top: 15px;
 }
 
+.post-container {
+    margin-left: 0 !important;
+}
+
 .message-container {
     margin-top: 10px;
     margin-bottom: 20px;
