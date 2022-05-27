@@ -57,6 +57,7 @@ namespace Webpage
             });
             services.AddRazorPages();
             services.AddHttpContextAccessor();
+
             //Part of the SignalR for chat app
             services.AddServerSideBlazor();
             services.AddResponseCompression(opts =>
