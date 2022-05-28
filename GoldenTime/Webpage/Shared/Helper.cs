@@ -62,6 +62,26 @@ namespace Webpage.Shared
             return CACHED_CATEGORY_FLAT_LIST;
         }
 
+        public static List<Preferences> GetSelectedCategories(IDbContextFactory<cosc2650Context> contextFactory, int userId)
+        {
+                        using (var dbc = contextFactory.CreateDbContext())
+            {
+                // All Categories
+                List<Preferences> myPreferences = dbc.Preferences
+                    .Include(p => p.PreferenceIdxNavigation)
+                    .Where(p => p.UserIdx == userId && p.PreferenceIdxNavigation.Name.Equals("MatchCategory"))
+                    .ToList();
+                if (myPreferences.Count > 0)
+                {
+                    return myPreferences;
+                }
+                else
+                {
+                    return myPreferences = null;
+                }                
+            }
+        }
+
         internal static void ReplaceUserCategories(IDbContextFactory<cosc2650Context> contextFactory, List<POCO.Category> categories, int userId)
         {
             using (var dbc = contextFactory.CreateDbContext()) {

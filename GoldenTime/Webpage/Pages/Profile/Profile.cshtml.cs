@@ -20,6 +20,7 @@ namespace Webpage.Pages.Profile
         public List<POCO.User> Users;
         public List<POCO.Message> Messages;
         public List<POCO.Post> Posts;
+        public List<Preferences> SelectedCategoires;
 
         //setting context factory
         public ProfileModel(IDbContextFactory<cosc2650Context> contextFactory)
@@ -38,6 +39,9 @@ namespace Webpage.Pages.Profile
                 Users = Helper.GetUsers(_contextFactory, userId );
                 Messages = Helper.GetMessages(_contextFactory, userId);
                 Posts = Helper.GetUserPosts(_contextFactory, Helper.GetUserIndex(_contextFactory, userId));
+                //Gets categories user has selected previously from the db
+                SelectedCategoires = Helper.GetSelectedCategories(_contextFactory, 
+                    Helper.GetUserIndex(_contextFactory, userId));
                 return Page();
             }
            

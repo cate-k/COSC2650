@@ -37,10 +37,30 @@
 }
 
 <h2>My Categories</h2>
+@if (!Model.MyCategories.Any())
+{
+    @:No categories fetched.
+}
+@foreach (var category in Model.MyCategories)
+{
+    @foreach (var selected in Model.SelectedCategoires)
+    {
+        @if (selected.PreferenceValue.ToString() == category.Idx.ToString())
+        {
+            <div class="category-item">
+                <input class="category-checkbox" type="checkbox" name=@category.Name checked disabled>
+                <label class="category-label" >@category.Name</label>
+            </div>
+        }
+    }
+}
 
- <form id="updateCategories" method="post" enctype="multipart/form-data">
+<br />
+<br />
+<h2>Select Categories</h2>
+<form id="updateCategories" method="post" enctype="multipart/form-data">
     <div class="category-items">
-        @if (!Model.MyCategories.Any()) 
+        @if (!Model.MyCategories.Any())
         {
             @:No categories fetched.
         }
@@ -52,7 +72,7 @@
             }
         }
     </div>
-    
+
     <button type="submit" asp-page-handler="UpdateCategories" class="animated-btn">
         <span>Update categories</span>
     </button>
@@ -65,7 +85,7 @@
 <div class="messages-container">
     @foreach (var post in Model.Posts)
     {
-         <div class="post-container">
+        <div class="post-container">
             @if (post.Attachments.Any())
             {
                 <img class="post-img" src="data:image/png;base64,@post.Attachments[0].WebContent" alt="@post.Filename" />
@@ -75,11 +95,11 @@
                     <br />
                 }
             }
-            
+
             <h3>@post.Subject</h3>
             <p>@post.Content</p>
 
-            @if(post.StartingOn != null)
+            @if (post.StartingOn != null)
             {
                 <i class="fa-regular fa-calendar"></i>
                 <span>Starts: @post.StartingOn</span>
@@ -95,22 +115,27 @@
                 <span class="uploader-name">@post.FullName</span>
                 • @post.CreatedOn
             </span>
-        
+
             @if (post.Categories.Any())
             {
                 <div class="categories-container">
                     @foreach (var postCategory in post.Categories)
                     {
+
                         <button class="category">@postCategory.Name</button>
                     }
                 </div>
             }
 
-            <div class="send-msg-btn-container">
-                <a class="send-msg-btn" href="/MessagePages/AddMessages/?messageTitle=@post.Subject.Replace(' ','%') &&owner=@post.Email">
-                    Send @post.FullName a message
-                </a>
-            </div>
+            @*
+                       Comented out by Andrew on 28/05/22 pretty sure people don't want to be able to message themself
+                        on their profile page
+                        <div class="send-msg-btn-container">
+                    <a class="send-msg-btn" href="/MessagePages/AddMessages/?messageTitle=@post.Subject.Replace(' ','%') &&owner=@post.Email">
+                        Send @post.FullName a message
+                    </a>
+                </div>
+            *@
 
             @if (post.CalculatedRate.HasValue)
             {
