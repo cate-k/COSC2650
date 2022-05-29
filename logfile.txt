@@ -1,0 +1,754 @@
+commit 32aeae483be0139ceeadbfe5596a407933493379 (HEAD -> refs/heads/main, refs/remotes/origin/main, refs/remotes/origin/HEAD)
+Merge: bdd1d22 1d563ec
+Author: Cate K <cate@caitlen.dev>
+Date:   Sat May 28 19:36:18 2022 +1000
+
+    Fixed merge issues
+
+commit bdd1d22b209519f871e533fae8b977a7f98bd763 (refs/remotes/origin/styles)
+Author: Cate K <cate@caitlen.dev>
+Date:   Sat May 28 19:34:17 2022 +1000
+
+    Styled the Registration page
+
+commit 9ac654281e88773c0fab7bc7f91314bf7b6bc43e
+Author: Cate K <cate@caitlen.dev>
+Date:   Sat May 28 19:20:49 2022 +1000
+
+    Minor changes to chat box styling
+
+commit 1d563ec115b33d2a0b761bc098da115fc5a79048
+Author: Andrew <aceware152@gmail.com>
+Date:   Sat May 28 16:05:50 2022 +1000
+
+    Changing name of messages to chat, makes more sense
+
+commit 9bd69214ac5902d9699549bbb24860b463a187f1
+Author: Andrew <aceware152@gmail.com>
+Date:   Sat May 28 14:29:27 2022 +1000
+
+    added <br/>s to stop page braking when all categories were selected
+
+commit 06d7a4f08620b3e9e3d24fc4f4f084186d70d266
+Author: Andrew <aceware152@gmail.com>
+Date:   Sat May 28 13:16:28 2022 +1000
+
+    Adding categories selected visual element
+    Removed message button on posts on profile page
+    Added code to helper that was required for modifications
+
+commit c969e13d86435089778d6ed8a0a7c687f5f27baa
+Author: Andrew <aceware152@gmail.com>
+Date:   Fri May 27 14:58:53 2022 +1000
+
+    Chat Updates. Mostly Styling at present is inline css
+    Some functional updates and code comments.
+    Looks much better but no doubt Caitlen can make it look amzing!
+
+commit 59f345e82b48c8ec287ebfae6ec8feacab03fb95
+Merge: 7584095 08c64ab
+Author: Andrew <aceware152@gmail.com>
+Date:   Thu May 26 21:41:45 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650 into main
+
+commit 758409581a459e22bfea2962cf326a6f528187a1
+Author: Andrew <aceware152@gmail.com>
+Date:   Thu May 26 21:41:29 2022 +1000
+
+    Registration done
+
+commit 08c64ab1032b3e49ac1b1a8796ce354de6e48b80
+Author: Cate K <cate@caitlen.dev>
+Date:   Mon May 23 11:27:30 2022 +1000
+
+    FIxed the styling on the posts in the Profile page
+
+commit db860bacf11c78005186b28dedaec382b825a74d
+Merge: e4d8d60 0e88319
+Author: Cate K <cate@caitlen.dev>
+Date:   Sun May 22 16:31:25 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 0e883193e8a4fc7933a6cc8a1e2866b21292f7e5
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Sat May 21 20:41:08 2022 +0800
+
+    remove tiktok
+
+commit 4f263061c8d65527a3dc8ed7064a7967ae5c9ee6
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Sat May 21 20:36:38 2022 +0800
+
+    test
+
+commit 225d3659baf5e67287ddf55228ca05860b0ebc1e
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Sat May 21 20:30:49 2022 +0800
+
+    debug
+
+commit 89683665a6b502917474691209cf14be1d33c7d3
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Sat May 21 20:21:24 2022 +0800
+
+    posts listing
+
+commit 4adb78ad6c4323dbb409f1f90b4fc5993511fb21
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Sat May 21 20:03:26 2022 +0800
+
+    fix profile page
+
+commit e1753108f2bfb3df554e66cd1ac0d58d8cb9f4e4
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Sat May 21 21:42:05 2022 +1000
+
+    changes to profile bug fix
+
+commit ab0679b3efd905671ac36371260fd018be001ff4
+Author: Andrew <aceware152@gmail.com>
+Date:   Thu May 19 13:52:05 2022 +1000
+
+    bug fixes, admin page access, messages and a few other bonuses chucked in for fun
+
+commit e4d8d60939f8d2427d74274bb894fefbccd56e9b
+Author: Cate K <cate@caitlen.dev>
+Date:   Thu May 19 13:08:58 2022 +1000
+
+    Updated the tooltips in the admin functionalities
+
+commit 838e83e0bb4d21c7e21a3ddddb855234174f3e15
+Author: Cate K <cate@caitlen.dev>
+Date:   Thu May 12 13:19:02 2022 +1000
+
+    Minor edits to Profile page
+
+commit 4ebba54f5bc9e24bbed7e054c5b2e106bcc435be
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Tue May 10 21:09:22 2022 +1000
+
+    updates to profile Page
+
+commit 726889a5bfedd07b7f475192c47c273df02e02c2
+Author: Cate K <cate@caitlen.dev>
+Date:   Sun May 8 17:30:25 2022 +1000
+
+    Styled all the admin functionalities
+
+commit ffe7316b0066f6fde303f4d5d910ee0b1ef520a9
+Author: Cate K <cate@caitlen.dev>
+Date:   Sat May 7 16:32:39 2022 +1000
+
+    Styled the Messages functionality in the Admin panel
+
+commit 8ce32662e9cfe8734d8115618167495d82c6fec0
+Author: Cate K <cate@caitlen.dev>
+Date:   Fri May 6 13:16:16 2022 +1000
+
+    Styled the profile page
+
+commit 21a36ef2a103365bbbfdb16d29978ba6b145433c
+Author: Cate K <cate@caitlen.dev>
+Date:   Wed May 4 17:39:02 2022 +1000
+
+    Changed the categories selection in the Post page.
+
+commit f6738d576965516a57752c3d340f69e55c57cf83
+Merge: a7d8dae c452f64
+Author: Cate K <cate@caitlen.dev>
+Date:   Wed May 4 14:34:15 2022 +1000
+
+    Merge remote-tracking branch 'origin/main' into styles
+
+commit c452f642416732734453eb7665ce1c92d3c18c9d
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue May 3 22:32:02 2022 +0800
+
+    QFIX
+
+commit 50159201bd6713b3b18037f1c32140c33d7556d8
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue May 3 22:28:49 2022 +0800
+
+    Rating posts complete (categories and location matching).
+
+commit 2b314eef08f978c2afe5d1dc427cc2b43b7ad663
+Merge: 930e10b c0f9106
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue May 3 21:03:53 2022 +0800
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 930e10b80fd2ccb87e64180fbfa55960d7cd02e8
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue May 3 20:58:57 2022 +0800
+
+    Rating/matching alg. WIP
+
+commit c0f910632f100a95f0dab021e3ebb76d3962ffc8
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue May 3 22:12:36 2022 +1000
+
+    minor bug fixes to chat module
+
+commit 881bcc69dcd7e6c63e2f6bfa5ebcafa25a589cda
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue May 3 21:51:09 2022 +1000
+
+    oops it didn't like null changed to messages.clear()
+
+commit 6ec04188dd860a1bd612bd70651e4afe81a9e562
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue May 3 21:38:49 2022 +1000
+
+    pushing fix for resident messages
+
+commit c40e7d9bfc006deaed06c8d654d399f23c629ec7
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue May 3 15:55:33 2022 +1000
+
+    crossing fingers and hopeing this works, major upgrade to messages. 4 things outstanding, colors, trimming user list and clearning message box, testing functionality required for multi user chat
+
+commit a7d8daeb5027241bf8df751e7cc4dea612fe8b4a
+Author: Cate K <cate@caitlen.dev>
+Date:   Mon May 2 18:48:57 2022 +1000
+
+    Resized the home page image to a smaller size
+
+commit 499576451d88a1c804612309f6d9e2a1840c0ecf
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Fri Apr 22 21:40:42 2022 +0800
+
+    C2ST1-199
+    
+    * Check Post’s user context
+    * Admin route
+    * Claims helpers
+    * Un-auth messages/post —> auth
+    * Messages
+        * only see yours
+        * Recipient is drop down box
+        * Link to Post -> pre-populate
+    * Stats added
+        * Messages created
+        * Posts created
+        * Users logged in
+
+commit 4729630da975cb00f263e67766475f47749bc931
+Author: Sam Abdelhamid <51085852+s9967839@users.noreply.github.com>
+Date:   Wed Apr 20 23:15:11 2022 +1000
+
+    User authentication from DB - Userpassword not hashed yet. this is in next commit incase i botch itup.
+
+commit 4b0062b1a6395c87402f9ec9c562a5ad11fa7f55
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 19 18:31:38 2022 +1000
+
+    Styled posts that have attached images and categories in the feed page
+
+commit 1937272b4f6f2f500ee00006dac91ad5961a4801
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 18 23:56:06 2022 +0800
+
+    Fixes and refactorings.
+
+commit ef052e80b255720ed0e45c3450c9e54e4f5290b6
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 18 23:21:23 2022 +0800
+
+    Updated Post functionality.
+    Feed now displays attached image and categories selected at post creation.
+
+commit a22ebb4b8b4e50ed8a2e22c37f6e393bafd6ef0e
+Author: Cate K <cate@caitlen.dev>
+Date:   Mon Apr 18 18:24:47 2022 +1000
+
+    Styled the profile page
+
+commit d14994084c428982abea40e2ddbe503a78bde21e
+Author: Cate K <cate@caitlen.dev>
+Date:   Mon Apr 18 17:33:49 2022 +1000
+
+    Added styling to the login status in the navigation bar
+
+commit 9d870609451dcea97779643289d08a69a62dbcc2
+Author: Cate K <cate@caitlen.dev>
+Date:   Mon Apr 18 16:55:41 2022 +1000
+
+    Styled the login page
+
+commit 94c4234b115c4ca1d9bfcc6e5efd46d104b8bc52
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Thu Apr 14 19:17:44 2022 +1000
+
+    updates to profile page
+    
+    login added
+
+commit 75a67e9c8be2cca9ce2f61844243cd43093dc156
+Merge: d3c4a40 0ba6760
+Author: Andrew <aceware152@gmail.com>
+Date:   Wed Apr 13 15:37:00 2022 +1000
+
+    Hopefully this works probably the most complex git operation I have ever done. Adding Admin for Messages/Users/Posts
+
+commit 0ba6760c5d3d162c20d92ea9e1c41967205c99c8 (refs/remotes/origin/C2ST1-147-setup-up-admin-page)
+Author: Andrew <aceware152@gmail.com>
+Date:   Wed Apr 13 15:29:47 2022 +1000
+
+    Adding admin for messages/posts/users
+
+commit d3c4a402f744a6cbb29c08ea9d6f9a281fb81464
+Merge: 128c345 d705a00
+Author: Cate K <cate@caitlen.dev>
+Date:   Wed Apr 13 14:24:49 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 128c34548ae46f559c5f9c4f4ad31d91c6d0ca28
+Merge: 22af478 b3fae24
+Author: Cate K <cate@caitlen.dev>
+Date:   Wed Apr 13 14:24:34 2022 +1000
+
+    Merge branch 'styles'
+
+commit b3fae243ec4afb0af6e283e384f2dbdbf55a2855
+Author: Cate K <cate@caitlen.dev>
+Date:   Wed Apr 13 14:23:52 2022 +1000
+
+    An automatic scroll bar appears in the Categories section when it gets over 3 sub-categories.
+
+commit d705a00952f0cb4fce40f7731c46a3c3d7f02f3c
+Author: Sam Abdelhamid <51085852+s9967839@users.noreply.github.com>
+Date:   Wed Apr 13 01:39:13 2022 +1000
+
+    Dynamic Login/Logout working.
+
+commit 14eb3b0e2740bca53cd7859f45142ac8af6278b2
+Merge: 53cc956 22af478
+Author: Sam Abdelhamid <51085852+s9967839@users.noreply.github.com>
+Date:   Tue Apr 12 23:38:52 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 53cc95654b871cacea6afd8098798a531139632e
+Author: Sam Abdelhamid <51085852+s9967839@users.noreply.github.com>
+Date:   Tue Apr 12 23:38:32 2022 +1000
+
+    Building new custom login page - SamA Have not built logout yet, to logout use dev tools and delete cookies.
+    to do, add to database.
+
+commit 22af478eca707649b8673b59b7a066d0c18f6675
+Merge: 0b7706f 2f6d8a4
+Author: aceware152 <S3820255@student.rmit.edu.au>
+Date:   Tue Apr 12 21:41:00 2022 +1000
+
+    Merge pull request #5 from MClementeRMIT/revert-4-C2ST1-147-setup-up-admin-page
+    
+    Revert "need to test this on the live version to see if it works auth issues …"
+
+commit 2f6d8a45bf0bbab4de5fb0c0ce65643d0c497714 (refs/remotes/origin/revert-4-C2ST1-147-setup-up-admin-page)
+Author: aceware152 <S3820255@student.rmit.edu.au>
+Date:   Tue Apr 12 21:40:39 2022 +1000
+
+    Revert "need to test this on the live version to see if it works auth issues …"
+
+commit 0b7706f61686b2e981514369eec4f9f0962711e2
+Merge: 5e373ed 45fb6ca
+Author: aceware152 <S3820255@student.rmit.edu.au>
+Date:   Tue Apr 12 17:05:14 2022 +1000
+
+    Merge pull request #4 from MClementeRMIT/C2ST1-147-setup-up-admin-page
+    
+    need to test this on the live version to see if it works auth issues …
+
+commit 45fb6caae182405865ba0060255081eb9854e726
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue Apr 12 17:04:11 2022 +1000
+
+    need to test this on the live version to see if it works auth issues on local host
+
+commit 5e373ed872aad72388ac170755574fd14ceddff9
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 12 15:55:47 2022 +1000
+
+    Added the stylesheet to the privacy policy page
+
+commit 057507b1320a7dbb84dd66a36fbfa91edca4efb8
+Merge: 7fca969 51ed47e
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 12 15:44:13 2022 +1000
+
+    Styled the privacy policy page
+
+commit 51ed47ec7c93c7bf7c110d91a4f47fbbffa6dc3f
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 12 15:42:39 2022 +1000
+
+    Styled the privacy policy page
+
+commit 7fca969306520e612f939a5c28c4d7de784b052d
+Merge: 6d80581 f3f9b37
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 12 15:28:43 2022 +1000
+
+    Fixed merge conflicts
+
+commit 6d805811888ae9a48630e3469dc3affe9d621343
+Merge: 300cc82 14a8145
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 12 15:23:02 2022 +1000
+
+    Merge branch 'styles'
+
+commit f3f9b370b2579eadff5dd0ae1ff2af9e4f2a7fd8
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue Apr 12 08:58:11 2022 +0800
+
+    Linked Sender/Receiver in the Messages and display their name in the frontend.
+
+commit 8535cd95e9a4f56d7a2a57483ecfac31a9bc1128
+Merge: f85abb1 939667c
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue Apr 12 08:43:53 2022 +0800
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+    
+    # Conflicts:
+    #       GoldenTime/Webpage/EFModel/cosc2650Context.cs
+
+commit f85abb1a28fab664368941008eb8e6c64b58da58
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Tue Apr 12 08:42:12 2022 +0800
+
+    Huh this should have been pushed already :\
+
+commit 939667cc11154876ee543c74660408f7514f325d
+Merge: aee2dd1 f41ffff
+Author: aceware152 <S3820255@student.rmit.edu.au>
+Date:   Tue Apr 12 10:30:58 2022 +1000
+
+    Merge pull request #3 from MClementeRMIT/C2ST1-147-setup-up-admin-page
+    
+    Privacy Policy Content Upload
+
+commit f41ffffdc3082542de73a9c1c4373073eabbabbd
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue Apr 12 10:28:44 2022 +1000
+
+    Privacy Policy Content Upload
+
+commit aee2dd1bdb2928fd56920714ee47db9821388c91
+Author: Sam Abdelhamid <51085852+s9967839@users.noreply.github.com>
+Date:   Tue Apr 12 02:13:28 2022 +1000
+
+    Sam - Testing getting username back from AD
+
+commit 14a8145ae11d4a1b27de637cc8754a9ae599bbc4
+Author: Cate K <cate@caitlen.dev>
+Date:   Tue Apr 12 00:07:40 2022 +1000
+
+    Temporarily styled the messages page
+
+commit 8a7bc27f51a762320a10e538e0d4069a2a4e0262
+Merge: b09ea5e 6a5ad61
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 11 18:57:28 2022 +0800
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit b09ea5e09fb8e87648532d22c0c6d4cb924a1891
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 11 18:56:56 2022 +0800
+
+    Regen EF, added Admin flag to the User entity.
+
+commit 6a5ad613c4e55e965b2b71d2cd672c31124dbd53
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Mon Apr 11 13:07:31 2022 +1000
+
+    messages added to profile
+    
+    updated profile page
+
+commit 300cc82fca7ebc46975b3ae87e15dd083c4499df
+Merge: fe5a90c eb76123
+Author: Cate K <cate@caitlen.dev>
+Date:   Sat Apr 9 17:32:26 2022 +1000
+
+    Merge branch 'styles'
+
+commit eb76123db2f74886bcdc8cf239b7f5e2e7c9d6ad
+Author: Cate K <cate@caitlen.dev>
+Date:   Sat Apr 9 17:27:31 2022 +1000
+
+    Styled the feed page
+
+commit fe5a90cf00fdcffefdf8ded726dda36f8fe82c43
+Merge: 977aed3 9508351
+Author: Cate K <cate@caitlen.dev>
+Date:   Fri Apr 8 17:04:49 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 977aed36d1fa6c3434eac46da4d108a2584786cb
+Merge: 07d4b47 0d70559
+Author: Cate K <cate@caitlen.dev>
+Date:   Fri Apr 8 17:04:17 2022 +1000
+
+    Merge branch 'styles'
+
+commit 0d705595047dabac89be106753155a98aeb37564
+Author: Cate K <cate@caitlen.dev>
+Date:   Fri Apr 8 17:03:29 2022 +1000
+
+    Styled the post creation page
+
+commit 95083518d57f840d24505e9717c43083214e43f1
+Author: Andrew <aceware152@gmail.com>
+Date:   Thu Apr 7 19:22:57 2022 +1000
+
+    Changed image to root relative (I added a slash)
+
+commit f7ac193cc1448e1feb8526a1cd601a79a32df23e
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Thu Apr 7 18:47:12 2022 +1000
+
+    updates to the profile page
+    
+    connected profile page to the DB and pulling user information.
+
+commit 07d4b476b74e11258ac2f9f551d98af684f7469f
+Merge: 70d750b e8022ba
+Author: Cate K <cate@caitlen.dev>
+Date:   Thu Apr 7 17:33:46 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit e8022ba8d22c7cae57d22688fd8822f262cb409c
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Thu Apr 7 16:27:49 2022 +1000
+
+    testing commit error
+    
+    for andrew
+
+commit 70d750b8397432240368c8744df7620514b02a39
+Author: Cate K <cate@caitlen.dev>
+Date:   Thu Apr 7 14:35:40 2022 +1000
+
+    Styled the home page
+
+commit a90ac202cd0ff4a322c99aaf8748000fd0dbadb9
+Merge: cdc4358 ff4097f
+Author: Andrew <aceware152@gmail.com>
+Date:   Wed Apr 6 16:05:42 2022 +1000
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650 into main
+
+commit cdc435890b053349e775518534a2d1acb9b36fab (refs/remotes/origin/C2ST1-145-build-add-messages-page)
+Author: Andrew <aceware152@gmail.com>
+Date:   Wed Apr 6 15:46:01 2022 +1000
+
+    Basic add messages framework done
+
+commit ff4097fb9496c52ccf1a80724845a2655f61b4fd
+Author: haryfish <s3559087@student.rmit.edu.au>
+Date:   Wed Apr 6 15:35:15 2022 +1000
+
+    Test Profile page commit
+    
+    added profile page and item to nav bar in layout
+
+commit 55c796eec79920d06215d4067b386c960c6e186b
+Author: Andrew <aceware152@gmail.com>
+Date:   Tue Apr 5 13:08:49 2022 +1000
+
+    I have screwed up and done this on the main branch and am not sure how to moce the changes so am pushing how it is soz
+
+commit 8b431cd703c066b9ff7663ce6cccdec6dc2d817f
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 4 12:24:49 2022 +0800
+
+    Fixed merge
+
+commit bcc982c00bddf9d9eceafe903296c6adcddcf924
+Merge: 6385221 58fd231
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 4 11:59:02 2022 +0800
+
+    Merge commit '58fd231404643db8251df71001416c9c195d046f'
+    
+    # Conflicts:
+    #       GoldenTime/Webpage/Webpage.csproj
+
+commit 58fd231404643db8251df71001416c9c195d046f (refs/remotes/origin/C2ST1-140-create-messages-page)
+Author: Andrew <aceware152@gmail.com>
+Date:   Mon Apr 4 13:48:16 2022 +1000
+
+    messages added to db, basic page shell added as well
+
+commit 638522114673eaf9642b053f9986e3e8edad36f4
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Mon Apr 4 00:47:53 2022 +0800
+
+    C2ST1-139 Completed adding the post (all properties)
+    C2ST1-142 Added last top 10 posts on main page
+
+commit ee854499b55aaf9d863c7f1e3252ecc2aa453376
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Thu Mar 31 13:25:58 2022 +0800
+
+    Making the code prettier.
+
+commit 103724ef09db6570a57ef05c38330b1b089375b0
+Merge: 6a20858 1a9f6cd
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Wed Mar 30 20:43:21 2022 +0800
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 6a208589ce9125ac1d70d37d44f2622c7611937d
+Author: Marko Clemente <s3739099@student.rmit.edu.au>
+Date:   Wed Mar 30 20:37:12 2022 +0800
+
+    *Missing saved changes*
+
+commit 1a9f6cdaf8b5242a91cb1131def4e8d083ff4857
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Mar 30 19:58:06 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit 2dfc19150df69db8f5292a5717c99e08005bbbf9
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Mar 30 19:49:28 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit fd3fa079996d3b1995d4ea70662fef69ccee7428
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Mar 30 19:46:11 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit 5d49c2dcd78729d2869ed3d340dd767c6b342dfb
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Mar 30 19:38:20 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit d977cc0b2b86101ee5fe0bd8e0c1ca233058e7ea
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Mar 30 19:26:32 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit cb737ba1fa3f5b1f154de18ff1f910713b8903a5
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Mar 30 19:21:08 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit cbdb7a108a13009e6724e0a15ad6809252697818
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Wed Mar 30 18:14:35 2022 +0800
+
+    *Unsaved files*
+
+commit 5ad5a86230c7abcd059d58d19163a0c6ded8d5fe
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Wed Mar 30 17:40:48 2022 +0800
+
+    C2ST1-139 Added skeleton Post page. Some of the fields are not there yet,
+    or not being persisted.
+
+commit 32cbf50292112f6d04ae3223e2fa591cb49d7070
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Mon Mar 28 15:28:03 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit a60f0847923a2f1e7f15a3cf1533dcb3399ab5d1
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Mon Mar 28 15:02:59 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit 149e7a9f1f01ef2d36e835f5051f6d1c3003cd52
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Mon Mar 28 14:09:01 2022 +0800
+
+    C2ST1-137 Added EF to the solution.
+
+commit 8894134fbc3643833eae4ee32661b6b01a656c3c
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Mon Mar 28 11:50:50 2022 +0800
+
+    Small refactoring.
+
+commit 7aacd58478650c5dbc210114cb5b58091f193473
+Merge: 60cf880 009db1c
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Mon Mar 28 10:48:58 2022 +0800
+
+    Merge branch 'main' of https://github.com/MClementeRMIT/COSC2650
+
+commit 60cf8805e92ee93bee0b789be78b471882d2efcd
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Mon Mar 28 10:46:30 2022 +0800
+
+    C2ST1-89 Modifications based on the database review session.
+
+commit 009db1cb9d73700eb75684110e7af5808be33a22
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Sun Mar 27 18:43:02 2022 +0800
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit 8de0a3fce359090cfb344792fe7503d5929ff54c
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Sun Mar 27 18:26:50 2022 +0800
+
+    Set up CI with Azure Pipelines
+    
+    [skip ci]
+
+commit 6ac361bec0d27953d841e0e96a5ae75fd2c2b46c
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Sun Mar 27 18:17:31 2022 +0800
+
+    Set up CI with Azure Pipelines
+    
+    [skip ci]
+
+commit 719d5bcd2aed075cc87cd6a01fd340ce0934f4ec
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Wed Mar 23 19:58:04 2022 +0800
+
+    C2ST1-89
+    
+    Added basic db structure.
+    Deployed to Azure.
+    
+    Scripts are stored in Database folder.
+
+commit 744c7763fe79e033b342db8bdf72d42485f017f9
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Fri Mar 18 10:37:57 2022 +0800
+
+    C2ST1-94 Created a .NET 5 ASP.NET webpage bolirplate solution. Deployed to Azure https://golden-time.azurewebsites.net/
+
+commit f7c3eb3b5b0beeac85616e74b795e76e1fdeb7e3
+Author: Marko Clemente <markoclemente@Markos-MBP.lan>
+Date:   Thu Mar 17 16:20:40 2022 +0800
+
+    C2ST1-78 Added instructions how to link git commits with Jira.
+
+commit e760c088e0386dc4b8ae79a234f5e0034edca0f5
+Author: MClementeRMIT <81467861+MClementeRMIT@users.noreply.github.com>
+Date:   Wed Feb 23 18:14:59 2022 +0800
+
+    Initial commit
