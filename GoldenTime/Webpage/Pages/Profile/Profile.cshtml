@@ -14,8 +14,7 @@
             {
                 @foreach (var selected in Model.SelectedCategoires)
                 {
-                    <p>Pref Value @selected.PreferenceValue.ToString()</p>
-                    <p>Cat Idx @category.Idx.ToString()</p>
+
                     @if (selected.PreferenceValue.ToString() == category.Idx.ToString())
                     {
                         check = true;
