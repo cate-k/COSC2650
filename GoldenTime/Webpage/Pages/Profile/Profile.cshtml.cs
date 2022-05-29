@@ -39,9 +39,7 @@ namespace Webpage.Pages.Profile
                 Users = Helper.GetUsers(_contextFactory, userId );
                 Messages = Helper.GetMessages(_contextFactory, userId);
                 Posts = Helper.GetUserPosts(_contextFactory, Helper.GetUserIndex(_contextFactory, userId));
-                //Gets categories user has selected previously from the db
-                SelectedCategoires = Helper.GetSelectedCategories(_contextFactory, 
-                    Helper.GetUserIndex(_contextFactory, userId));
+
                 return Page();
             }
            
@@ -51,7 +49,7 @@ namespace Webpage.Pages.Profile
         public void OnPost()
         { }
 
-        public IActionResult OnPostUpdateCategories() {
+        public async Task<IActionResult> OnPostUpdateCategoriesAsync() {
             var userId = User.GetUserEmail();
             POCO.User user;
 
@@ -62,8 +60,10 @@ namespace Webpage.Pages.Profile
                 return RedirectToPage("/Account/Login");
 
 
-            Helper.ReplaceUserCategories(_contextFactory, Helper.GetItemSelectedCategories(_contextFactory, Request.Form), user.Idx);
-            
+            await Helper.ReplaceUserCategoriesAsync(_contextFactory, Helper.GetItemSelectedCategories(_contextFactory, Request.Form), user.Idx);
+            //Gets categories user has selected previously from the db
+            SelectedCategoires = Helper.GetSelectedCategories(_contextFactory,
+               Helper.GetUserIndex(_contextFactory, userId));
             return OnGet();
         }
     }

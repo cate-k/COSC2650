@@ -82,7 +82,7 @@ namespace Webpage.Shared
             }
         }
 
-        internal static void ReplaceUserCategories(IDbContextFactory<cosc2650Context> contextFactory, List<POCO.Category> categories, int userId)
+        internal static async Task ReplaceUserCategoriesAsync(IDbContextFactory<cosc2650Context> contextFactory, List<POCO.Category> categories, int userId)
         {
             using (var dbc = contextFactory.CreateDbContext()) {
                 var removable = dbc.Preferences
